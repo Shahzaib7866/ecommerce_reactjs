@@ -1,0 +1,120 @@
+
+
+.popular{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    height: 90vh;
+    padding: 60px 0px;
+}
+
+.popular h1{
+    color: #171717;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.popular hr{
+    width: 200px;
+    height: 6px;
+    border-radius: 10px;
+    background: #252525;
+} 
+
+/* .popular-item{
+    margin-top: 40px;
+    display: flex;
+    gap: 30px;
+} 
+
+.popular {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 10px;
+     min-height: 90vh;
+     padding: 60px 20px;
+ }
+ 
+*/
+  .popular-item {
+     margin-top: 40px;
+     display: flex;
+     gap: 30px;
+     flex-wrap: wrap;
+     justify-content: center;
+     max-width: 1600px;
+     margin-bottom: 120px;
+ } 
+
+ /* Mobile landscape and small tablets (max-width: 768px) */
+  @media (max-width: 768px) {
+     .popular {
+         padding: 40px 15px;
+         gap: 8px;
+     }
+
+     .popular h1 {
+         font-size: 32px;
+         text-align: center;
+     }
+
+     .popular hr {
+         width: 150px;
+         height: 4px;
+     }
+
+     .popular-item {
+         gap: 15px;
+         margin-top: 25px;
+         width: 100%;
+     }
+ } 
+
+ /* Mobile portrait (max-width: 480px) */
+ @media (max-width: 480px) {
+     .popular {
+         padding: 30px 10px;
+     }
+
+     .popular h1 {
+         font-size: 26px;
+     }
+
+     .popular hr {
+         width: 120px;
+         height: 4px;
+     }
+
+     .popular-item {
+         gap: 12px;
+         margin-top: 20px;
+     }
+ } 
+
+ /* Extra small devices (max-width: 360px) */
+  @media (max-width: 360px) {
+     .popular {
+         padding: 25px 8px;
+     }
+
+     .popular h1 {
+         font-size: 22px;
+     }
+
+     .popular hr {
+         width: 100px;
+         height: 3px;
+     }
+
+     .popular-item {
+         gap: 10px;
+         margin-top: 15px;
+     }
+ } 
+
+
+
+
+
