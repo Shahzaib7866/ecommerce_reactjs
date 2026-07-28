@@ -4,6 +4,16 @@
     box-sizing: border-box; /* Yeh properties ko elements ke andar hi rakhta hai, bahar nikalne nahi deta */
 }
 
+.light{
+    --background: #ffffff,
+    --foreground: #171717
+}
+
+.light {
+    --background: #171717,
+        --foreground: #c8c8c8
+}
+
 body {
     margin: 0;
     padding: 0;
