@@ -1,0 +1,31 @@
+
+
+
+.admin-page {
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.admin-page h1 {
+  color: #333;
+}
+
+.main{
+  display: flex;
+}
+
+.sidebar-wrapper{
+  height:auto;
+  width: 20%;
+  background-color: #333;
+
+}
+.right-content{
+  height: auto;
+  width: 82%;
+}
+
+
+
+
+
