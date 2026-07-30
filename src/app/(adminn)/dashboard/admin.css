@@ -1,31 +1,45 @@
-
-
-
 .admin-page {
-  padding: 20px;
+  /* Poori available height aur width cover karne ke liye */
+  width: 100%;
+  min-height: 100vh;
   background-color: #f4f4f4;
+
+  /* Browser ke default margins/paddings khatam karne ke liye */
+  margin: 0;
+  padding: 0;
 }
 
 .admin-page h1 {
   color: #333;
+  /* H1 tag ka default top/bottom margin khatam karne ke liye */
+  margin: 0;
+  padding: 20px;
+  /* Agar andar thodi padding chahiye ho */
 }
 
-.main{
+::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.main {
   display: flex;
+  width: 100%;
 }
 
-.sidebar-wrapper{
-  height:auto;
-  width: 20%;
-  background-color: #333;
-
+.sidebar-wrapper {
+  width: 18%;
+  height: 100vh;
 }
-.right-content{
-  height: auto;
+
+.right-content {
   width: 82%;
 }
-
-
-
-
-

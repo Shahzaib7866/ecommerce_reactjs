@@ -56,8 +56,8 @@ const Navbar = () => {
         <Image 
           src={getImageUrl("logo.png")} 
           alt="Wearit logo" 
-          width={38} 
-          height={38} 
+          width={45} 
+          height={45} 
           priority // Logo top par hota hai, isliye priority zaroori hai
         />
         <span>Wearit</span>

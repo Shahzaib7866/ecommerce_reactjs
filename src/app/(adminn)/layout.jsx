@@ -11,11 +11,9 @@ export const metadata = {
   description: "New Collections For Everyone",
 };
 
-export default function RootLayout({ children }) {
+export default function AdminLayout({ children }) {
   return (
-    <html lang="en">
-      {/* <body className={poppins.className} suppressHydrationWarning={true}> */}
-      <body>
+ 
         <div className="main">
           <div className="sidebar-wrapper">
             <Sidebar />
@@ -23,7 +21,9 @@ export default function RootLayout({ children }) {
 
           <div className="right-content">{children}</div>
         </div>
-      </body>
-    </html>
+
   );
 }
+
+
+

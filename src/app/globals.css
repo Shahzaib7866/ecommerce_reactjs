@@ -1,17 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Yeh properties ko elements ke andar hi rakhta hai, bahar nikalne nahi deta */
-}
-
-.light{
-    --background: #ffffff,
-    --foreground: #171717
+    box-sizing: border-box;
 }
 
 .light {
-    --background: #171717,
-        --foreground: #c8c8c8
+    --background: #ffffff;
+    --foreground: #171717;
 }
 
 body {
@@ -20,12 +15,13 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Poppins', sans-serif;
-    
-    /* Puri website par horizontal scrollbar ko block karne ke liye */
-    overflow-x: hidden; 
-    width: 100vw;
+
+    /* 100vw ki jaga 100% karein taake extra spacing ya gap na aaye */
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 code {
-     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

@@ -24,9 +24,36 @@
     top: 0;
     left: 0;
 
-
-
 }
+
+.sidebar-menu{
+    margin-top: 4px;
+}
+
+.list {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* List item ke liye */
+.menu-item-li {
+    width: 100%;
+}
+
+/* Button ke liye */
+.menu-btn {
+    width: 100%;
+    text-transform: capitalize !important;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    color: #374151 !important;
+    /* agar gap aur justify-start kaam karein */
+    gap: 8px;
+    font-weight: 600 !important;
+}
+
+
 
 
 

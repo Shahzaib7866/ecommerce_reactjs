@@ -1,11 +1,12 @@
 
+
 import './globals.css'
-import Navbar from '../components/Navbar/Navbar'
-import Footer from '../components/Footer/Footer'
+// import Navbar from '../components/Navbar/Navbar'
+// import Footer from '../components/Footer/Footer'
 import { Poppins } from 'next/font/google'
 import Providers from '../components/Providers'
-import CartDrawer from '../components/cartDrawer/cartdrawer'
-
+// import CartDrawer from '../components/cartDrawer/cartdrawer'
+import LayoutWrapper from '../components/LayoutWrapper'
 
 const poppins = Poppins({ 
   subsets: ['latin'],
@@ -22,14 +23,23 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className} suppressHydrationWarning={true}>
         <Providers>
-          <Navbar />
-          <CartDrawer /> 
-          <div style={{ paddingTop: '68px' }}>
+           {/* <Navbar /> 
+          <CartDrawer />  */}
+          <LayoutWrapper>
+          {/* <div style={{ paddingTop: '18px' }}> */}
+          <div>
             {children}
-            <Footer />
           </div>
+            </LayoutWrapper>
         </Providers>
       </body>
     </html>
   )
 }
+
+
+
+
+
+
+
