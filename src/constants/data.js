@@ -2,6 +2,11 @@ import { title } from "node:process";
 
 import GridViewTwoToneIcon from "@mui/icons-material/GridViewTwoTone";
 import CategoryTwoToneIcon from "@mui/icons-material/CategoryTwoTone";
+import { FaProductHunt } from "react-icons/fa6";
+import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
+import MarkEmailUnreadTwoToneIcon from "@mui/icons-material/MarkEmailUnreadTwoTone";
+import PeopleAltTwoToneIcon from "@mui/icons-material/PeopleAltTwoTone";
+
 
 const CLOUD = "https://res.cloudinary.com/drezpxdjw/image/upload";
 
@@ -59,14 +64,44 @@ export const sidebarMenu = [
 
   {
     title: "Categories",
-    href: "/dashboard",
+    href: "/category",
     icon: <CategoryTwoToneIcon fontSize="medium" />,
+    submenu: [
+      {
+        title: "Add Category",
+        href: "/category/add",
+      },
+      {
+        title: "Edit Category",
+        href: "/category/edit",
+      },
+    ],
   },
   {
-    title: "Categories",
-    href: "/dashboard",
-    icon: <CategoryTwoToneIcon />,
+    title: "Products",
+    href: "/products/list",
+    icon: <FaProductHunt fontSize={23} />,
+  },
+  {
+    title: "Customers",
+    href: "/customers",
+    icon: <PeopleAltTwoToneIcon fontSize="medium" />,
+  },
+  {
+    title: "Orders",
+    href: "/orders",
+    icon: <ShoppingCartTwoToneIcon fontSize="medium" />,
+  },
+  {
+    title: "Mails",
+    href: "/ mails",
+    icon: <MarkEmailUnreadTwoToneIcon fontSize="medium" />,
   },
 ];
 
 export default data_product;
+
+
+
+
+

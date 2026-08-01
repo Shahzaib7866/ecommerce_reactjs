@@ -1,6 +1,5 @@
 import "../(adminn)/dashboard/admin.css";
 import Sidebar from "../../components/admin/Sidebar";
-
 // const poppins = Poppins({
 //   subsets: ['latin'],
 //   weight: ['400', '500', '600', '700']
@@ -12,9 +11,13 @@ export const metadata = {
 };
 
 export default function AdminLayout({ children }) {
+  
+  const currentTheme = "light";
+  
   return (
  
-        <div className="main">
+        <div className={`main ${currentTheme}`}>
+          
           <div className="sidebar-wrapper">
             <Sidebar />
           </div>

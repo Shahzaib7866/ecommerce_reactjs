@@ -1,38 +1,49 @@
-.admin-page {
+/* .admin-page {
   /* Poori available height aur width cover karne ke liye */
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f4f4f4;
+  /* width: 100%;
+  /* min-height: 100vh;
+  background-color: #f4f4f4;  */
 
   /* Browser ke default margins/paddings khatam karne ke liye */
-  margin: 0;
-  padding: 0;
-}
+  /* margin: 0;
+  padding: 0; */
+  /* scroll-behavior: smooth;
+  background-color: var(--background); */
+ 
+/* }
 
 .admin-page h1 {
   color: #333;
   /* H1 tag ka default top/bottom margin khatam karne ke liye */
-  margin: 0;
-  padding: 20px;
+  /* margin: 0;
+  padding: 20px; */ 
   /* Agar andar thodi padding chahiye ho */
-}
+    /* color: dark !important;
+      color: lightgray !important; */
+/* } */
 
-::-webkit-scrollbar {
-  width: 5px !important;
-  height: 5px !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #ccc;
-}
-
-::-webkit-scrollbar-track {
-  background: #fff;
-}
-
-.main {
+/* .main {
   display: flex;
   width: 100%;
+  
+} */
+
+/* 🌙 Dark Theme Palette */
+/* .main.dark {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --sidebar-bg: #1e1e1e;
+  --content-bg: #181818;
+  color-scheme: dark;
+} */
+
+/* ☀️ Light Theme Palette */
+/* .main.light {
+  --bg-color: #f4f6f8;
+  --text-color: #212529;
+  --sidebar-bg: #ffffff;
+  --content-bg: #ffffff;
+  color-scheme: light;
 }
 
 .sidebar-wrapper {
@@ -42,4 +53,38 @@
 
 .right-content {
   width: 82%;
+ 
+}  */
+
+
+
+.admin-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--content-bg);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+}
+
+.admin-page h1 {
+  color: var(--text-main);
+  margin: 0;
+  padding: 20px;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.sidebar-wrapper {
+  width: 18%;
+  height: 100vh;
+}
+
+.right-content {
+  width: 82%;
+  background-color: var(--content-bg);
 }

@@ -1,12 +1,48 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+.app{
+    scroll-behavior: smooth;
+    color-scheme: light;
+}
+
 .light {
     --background: #ffffff;
     --foreground: #171717;
+}
+
+.dark {
+    --background: #171717;
+    --foreground: #c8c8c8;
+}
+
+.light ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+}
+
+.light ::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+.light ::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+.dark ::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #ccc;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background: #212121;
 }
 
 body {
@@ -17,11 +53,78 @@ body {
     font-family: 'Poppins', sans-serif;
 
     /* 100vw ki jaga 100% karein taake extra spacing ya gap na aaye */
-    width: 100%;
-    min-height: 100vh;
+    /* width: 100%; */
+    /* min-height: 100vh;
     overflow-x: hidden;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}  */
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    scroll-behavior: smooth;
+}
+
+/* Light Theme Variables */
+.light {
+    --background: #ffffff;
+    --foreground: #171717;
+    --sidebar-bg: #ffffff;
+    --content-bg: #f4f6f8;
+    --text-main: #212529;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --scrollbar-track: #fff;
+    --scrollbar-thumb: #ccc;
+}
+
+/* Dark Theme Variables */
+.dark {
+    --background: #121212;
+    --foreground: #c8c8c8;
+    --sidebar-bg: #1e1e1e;
+    --content-bg: #181818;
+    --text-main: #e0e0e0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --scrollbar-track: #212121;
+    --scrollbar-thumb: #444;
+}
+
+/* Universal Scrollbar using variables */
+::-webkit-scrollbar {
+    width: 5px !important;
+    height: 5px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--background);
+    color: var(--foreground);
+}
+
+.ReactCollapse--collapse {
+    transition: height 0.3s ease-in-out;
 }

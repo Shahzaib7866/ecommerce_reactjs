@@ -1,57 +1,257 @@
-
+/* 
 .sidebar{
-    width: 20%;
+    width: 18%;
     height: 100%;
 
     /* height: screen -> 100vh fills the full viewport height */
-    height: 100vh;
+    /* height: 100vh; */
     
     /* max-h-screen */
-    max-height: 100vh;
+    /* max-height: 100vh; */
 
     /* overflow-y-scroll overflow-x-hidden */
-    overflow-x: hidden;
-    overflow-y: scroll;
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
     
     /* p-3 -> 0.75rem (12px) padding on all sides */
-    padding: 0.75rem;
+    /* padding: 0.75rem; */
     
     /* border-r-[1px] border-[rgba(0,0,0,0.1)] */
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    /* border-right: 1px solid rgba(0, 0, 0, 0.1); */
     
     /* fixed top-0 left-0 */
-    position: fixed;
+    /* position: fixed;
     top: 0;
     left: 0;
 
-}
+} */
 
-.sidebar-menu{
-    margin-top: 4px;
+/* .sidebar-menu{
+    margin-top: 12px;
 }
 
 .list {
     width: 100%;
     box-sizing: border-box;
-}
+} */
 
 /* List item ke liye */
-.menu-item-li {
+/* .menu-item-li {
     width: 100%;
-}
+    margin-right: 4px;
+} */
 
 /* Button ke liye */
-.menu-btn {
+/* .menu-btn {
     width: 100%;
     text-transform: capitalize !important;
     text-align: left;
     display: flex;
-    justify-content: flex-start;
-    color: #374151 !important;
+    justify-content: flex-start !important;
+    color: #374151 !important; */
     /* agar gap aur justify-start kaam karein */
-    gap: 8px;
+    /* gap: 8px;
     font-weight: 600 !important;
+    padding: 12px 8px !important;
+    border-radius: 4px !important;
+    color: dark !important;
+    transition: all 0.3s ease-in-out !important;
+    color: lightgray !important;
+} */
+
+
+ .sidebar {
+     width: 18%;
+     height: 100vh;
+     max-height: 100vh;
+     overflow-x: hidden;
+     overflow-y: scroll;
+     padding: 0.75rem;
+     background-color: var(--sidebar-bg);
+     border-right: 1px solid var(--border-color);
+     position: fixed;
+     top: 0;
+     left: 0;
+ }
+
+ .sidebar-menu {
+     margin-top: 12px;
+ }
+
+ .list {
+     width: 100%;
+     box-sizing: border-box;
+ }
+
+ .menu-item-li {
+     width: 100%;
+     margin-right: 4px;
+ }
+
+ /* Material UI text buttons will inherit or use variables */
+ .menu-btn {
+     width: 100% !important;
+     text-transform: capitalize !important;
+     text-align: left !important;
+     display: flex !important;
+     justify-content: flex-start !important;
+     gap: 8px !important;
+     font-weight: 600 !important;
+     padding: 12px 8px !important;
+     border-radius: 4px !important;
+     color: var(--text-main) !important;
+     transition: all 0.3s ease-in-out !important;
+ }
+
+ .menu-btn:hover {
+     background-color: var(--border-color) !important;
+ }
+
+/* Submenu Container */
+.submenu {
+    margin-top: 4px;
+    margin-left: 12px;
+    padding-left: 8px;
+    border-left: 1px dashed var(--border-color, rgba(0, 0, 0, 0.2));
 }
+
+.sidebar {
+    width: 18%;
+    height: 100vh;
+    max-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0.75rem;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.sidebar-menu {
+    margin-top: 12px;
+}
+
+.list {
+    width: 100%;
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list {
+position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.submenu-toggle {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    /* Isko aap apne menu-btn ki height ke mutabiq adjust kar sakte hain */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    opacity: 0.7;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+/* FaAngleDown icon ki smooth transition aur rotation ke liye */
+.submenu-toggle svg {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Jab toggleIndex match karega to yeh class chalay gi aur icon 180 degree ghoom jaye ga */
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* Main Menu Button */
+.menu-btn {
+    width: 100% !important;
+    text-transform: capitalize !important;
+    text-align: left !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    font-weight: 600 !important;
+    padding: 10px 8px !important;
+    border-radius: 4px !important;
+    color: var(--text-main) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.menu-btn:hover {
+    background-color: var(--border-color) !important;
+}
+
+/* --- SUBMENU SECTION STYLING --- */
+.submenu {
+    width: 100%;
+    padding-left: 1.2rem;
+    /* Submenu ko thoda right shift karne ke liye */
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.submenu-list {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-left: 1px solid var(--border-color);
+    /* Elegant left line effect */
+    padding-left: 8px;
+}
+
+.submenu-item {
+    width: 100%;
+}
+
+.submenu-link {
+    text-decoration: none;
+    width: 100%;
+    display: block;
+}
+
+/* Submenu Button Styling */
+.submenu-btn {
+    width: 100% !important;
+    text-transform: capitalize !important;
+    text-align: left !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    padding: 8px 10px !important;
+    border-radius: 4px !important;
+    color: var(--text-main) !important;
+    opacity: 0.85;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.submenu-btn:hover {
+    opacity: 1;
+    background-color: var(--border-color) !important;
+}
+.btn-span {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: var(--text-main);
+    border-radius: 50%;
+    margin-right: 8px;
+
+}
+
 
 
 
