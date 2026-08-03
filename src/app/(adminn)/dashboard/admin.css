@@ -56,8 +56,6 @@
  
 }  */
 
-
-
 .admin-page {
   width: 100%;
   min-height: 100vh;
@@ -79,6 +77,10 @@
   min-height: 100vh;
 }
 
+.children-wrapper{
+  padding: 4px;
+}
+
 .sidebar-wrapper {
   width: 18%;
   height: 100vh;
@@ -88,3 +90,8 @@
   width: 82%;
   background-color: var(--content-bg);
 }
+
+
+
+
+
