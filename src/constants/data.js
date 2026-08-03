@@ -6,8 +6,7 @@ import { FaProductHunt } from "react-icons/fa6";
 import ShoppingCartTwoToneIcon from "@mui/icons-material/ShoppingCartTwoTone";
 import MarkEmailUnreadTwoToneIcon from "@mui/icons-material/MarkEmailUnreadTwoTone";
 import PeopleAltTwoToneIcon from "@mui/icons-material/PeopleAltTwoTone";
-
-
+import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 const CLOUD = "https://res.cloudinary.com/drezpxdjw/image/upload";
 
 let data_product = [
@@ -81,6 +80,20 @@ export const sidebarMenu = [
     title: "Products",
     href: "/products/list",
     icon: <FaProductHunt fontSize={23} />,
+    submenu: [
+      {
+        title: "Add Products",
+        href: "/products/add",
+      },
+      {
+        title: "Edit Products",
+        href: "/products/edit",
+      },
+      {
+        title: "Delete Products",
+        href: "/products/delete",
+      },
+    ],
   },
   {
     title: "Customers",
@@ -97,11 +110,11 @@ export const sidebarMenu = [
     href: "/ mails",
     icon: <MarkEmailUnreadTwoToneIcon fontSize="medium" />,
   },
+  {
+    title: "Logout",
+    href: "/logout",
+    icon: <LogoutTwoToneIcon fontSize="medium" />,
+  },
 ];
 
 export default data_product;
-
-
-
-
-

@@ -190,6 +190,12 @@ position: relative;
     background-color: var(--border-color) !important;
 }
 
+.menu-link {
+    text-decoration: none;
+    /* color: inherit;
+    display: inline-block; */
+}
+
 /* --- SUBMENU SECTION STYLING --- */
 .submenu {
     width: 100%;

@@ -12,24 +12,17 @@ import { FaAngleDown } from "react-icons/fa";
 
 import { Collapse } from 'react-collapse';
 
-
-
 const Sidebar = () => {
+  // Har menu item ke index ko track karne ke liye aik object state
+  const [openSubmenus, setOpenSubmenus] = useState({});
 
-  const [isToggleSubmenu, setIsToggleSubmenu] = useState(false);
-  //Shuru mein toggleIndex ki value null hoti hai, yani kisi bhi menu ka submenu open nahi hota, sab band hote hain.
-  const [toggleIndex, setToggleIndex] = useState(null);
-
-
-  // Jab kisi menu item ke arrow par click karte hain, toh toggleTab(i) function chalta hai aur us menu item ka index number toggleIndex mein save ho jata hai.
+  // Toggle function jo check karega ke agar already open hai toh close kar de, warna open kar de
   const toggleTab = (index) => {
-    //alert(`Clicked on menu item index: ${index}`);
-        setToggleIndex(index);
-
-    setIsToggleSubmenu(!isToggleSubmenu);
-
-  }
-
+    setOpenSubmenus((prev) => ({
+      ...prev,
+      [index]: !prev[index], // Jo current state hai usay reverse kar do
+    }));
+  };
 
   return (
     <aside className='sidebar'>
@@ -46,40 +39,49 @@ const Sidebar = () => {
         {sidebarMenu?.length !== 0 && (
           <ul className='list'>
             {sidebarMenu?.map((menu, i) => {
+              const isOpen = !!openSubmenus[i]; // Check karein ke yeh submenu open hai ya nahi
+
               return (
                 <li className='menu-list' key={i}>
-                  <Button variant="text" className='menu-btn'>
-                    {menu?.icon} {menu?.title}
-                  </Button>
+                  {
+                    menu?.submenu?.length > 0 ? 
+                      <Button variant="text" className='menu-btn' onClick={() => toggleTab(i)}>
+                        {menu?.icon} {menu?.title}
+                      </Button>
+                    :
+                      <Link href={menu?.href} className='menu-link'>
+                        <Button variant="text" className='menu-btn'>
+                          {menu?.icon} {menu?.title}
+                        </Button>
+                      </Link>
+                  }
 
                   {
                     menu?.submenu?.length > 0 && (
                       <span className='submenu-toggle' onClick={() => toggleTab(i)}>
-                        <FaAngleDown size={18} className={toggleIndex === i ? isToggleSubmenu === true ? 'rotate-180' : '' : ''} />
+                        <FaAngleDown size={18} className={isOpen ? 'rotate-180' : ''} />
                       </span>
                     )
                   }
 
                   {menu?.submenu?.length > 0 && (
-                    <Collapse isOpened={toggleIndex === i ? isToggleSubmenu : false}>
-
-                    <div className='submenu'>
-                      <ul className='submenu-list'>
-                        {menu.submenu.map((sub, j) => {
-                          return (
-                            <li className='submenu-item' key={j}>
-                              <Link href={sub?.href} className='submenu-link'>
-                                <Button variant="text" className='submenu-btn'>
-                                  <span className='btn-span'></span>
-                                  {sub?.title}
-                                </Button>
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-
+                    <Collapse isOpened={isOpen}>
+                      <div className='submenu'>
+                        <ul className='submenu-list'>
+                          {menu.submenu.map((sub, j) => {
+                            return (
+                              <li className='submenu-item' key={j}>
+                                <Link href={sub?.href} className='submenu-link'>
+                                  <Button variant="text" className='submenu-btn'>
+                                    <span className='btn-span'></span>
+                                    {sub?.title}
+                                  </Button>
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
                     </Collapse>
                   )}
                 </li>
