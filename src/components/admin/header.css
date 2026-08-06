@@ -6,26 +6,50 @@ header {
     right: 0;
     z-index: 100;
     padding-left: 1rem;
-    /* px-4 (16px) */
+    /* px-4 */
     padding-right: 1rem;
-    /* px-4 (16px) */
     padding-top: 0.75rem;
-    /* py-2 (8px) */
+    /* py-3 */
     padding-bottom: 0.75rem;
-    /* py-2 (8px) */
+    justify-content: space-between;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* shadow-md */
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
     gap: 0.75rem;
-    /* gap-3 (12px) */
+    /* gap-3 */
 }
 
 .menu-button {
     min-width: 40px !important;
-    /* !min-w-[40px] */
     width: 40px !important;
-    /* !w-[40px] */
     height: 40px !important;
-    /* !h-[40px] */
     border-radius: 9999px !important;
-    /* !rounded-full */
+    /* rounded-full */
     color: #1f2937 !important;
-    /* !text-gray-800 */
+    /* text-gray-800 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
