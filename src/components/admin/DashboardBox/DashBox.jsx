@@ -22,11 +22,22 @@ const DashBox = () => {
             navigation={true}
         >
             <SwiperSlide> 
-                <Box 
-                title="New Orders"
-                icon={<GoGift size={40} style={{ color: '#3b82f6' }}/>}
-                count={124}
-                /> 
+                <Box
+    title="New Orders"
+    icon={<GoGift size={40} style={{ color: '#3b82f6' }}/>}
+    count={124}
+    chartData={[
+    {  uv: 4000, pv: 1398, amt: 2210 },
+    {  uv: 3000, pv: 2400, amt: 2400 },
+    {  uv: 2000, pv: 9800, amt: 2290 },
+    { uv: 2780, pv: 3908, amt: 2000 },
+    { uv: 1780, pv: 3908, amt: 2000 },
+    { uv: 3280, pv: 5908, amt: 4000 },
+    {  uv: 4000, pv: 1398, amt: 2210 },
+
+
+  ]}
+/>
             </SwiperSlide>
          
         </Swiper>

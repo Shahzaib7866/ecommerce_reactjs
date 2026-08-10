@@ -11,6 +11,7 @@
 .box {
     width: 100%;
     height: auto;
+    margin: 0.75rem;
     padding: 0.75rem;
     /* p-3 */
     padding-top: 1rem;
@@ -26,19 +27,25 @@
     /* rounded-md */
 }
 
+.upper-content{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .box-content {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    /* gap-3 */
+    width: 100%;
 }
 
 .leftCol {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    /* gap-3 */
 }
 
 .info {
@@ -56,3 +63,49 @@
     font-size: 22px;
     font-weight: bold;
 }
+
+.box-chart {
+    width: 30%;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+
+hr {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0.75rem 0;
+}
+
+.lower-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    /* gap-3 */
+}
+
+.uper-span {
+    color: #15803d;
+    /* text-green-700 */
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.uper-span svg {
+    color: #15803d;
+    /* text-green-700 */
+}
+
+.lower-span {
+    color: #374151;
+    /* text-gray-700 */
+    font-size: 14px;
+}
+
+
+
+
+
