@@ -1,6 +1,6 @@
-i*+
 
-rt React from 'react'
+
+import React from 'react'
 import './dashBox.css'
 import { BarChart, Bar } from 'recharts';
 import { FiChevronsUp } from 'react-icons/fi';
@@ -37,7 +37,7 @@ const Box = (props) => {
 
       </div> 
       
-*     
+    
 <hr />
 
 <div className='lower-content'>
