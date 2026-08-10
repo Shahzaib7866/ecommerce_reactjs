@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
   const theme = cookieStore.get('app_theme')?.value || 'light'
 
   return (
-    <html lang="en" className={theme === 'dark' ? 'app dark' : 'app'}>
+    <html lang="en" className={`app ${theme}`}>
       <body className={poppins.className} suppressHydrationWarning={true}>
         <Providers theme={theme}>
           <LayoutWrapper>

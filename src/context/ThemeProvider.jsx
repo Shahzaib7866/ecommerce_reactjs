@@ -10,7 +10,9 @@ const ThemeContextProvider = ({ children, initialTheme }) => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(nextTheme);
     document.cookie = `app_theme=${nextTheme}; path=/; max-age=31536000; SameSite=Lax`;
-    document.documentElement.classList.toggle('dark', nextTheme === 'dark');
+  // Dono classes handle karo, sirf 'dark' nahi
+  document.documentElement.classList.remove('light', 'dark');
+  document.documentElement.classList.add(nextTheme);
   };
 
   return (

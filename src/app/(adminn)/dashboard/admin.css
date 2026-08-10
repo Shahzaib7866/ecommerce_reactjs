@@ -78,7 +78,9 @@
 }
 
 .children-wrapper{
-  padding: 4px;
+  padding-top: 80px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .sidebar-wrapper {
