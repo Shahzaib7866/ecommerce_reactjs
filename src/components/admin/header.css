@@ -1,3 +1,4 @@
+
 header {
     display: flex;
     width: 82%;
@@ -6,21 +7,17 @@ header {
     right: 0;
     z-index: 100;
     padding-left: 1rem;
-    /* px-4 */
     padding-right: 1rem;
     padding-top: 0.75rem;
-    /* py-3 */
     padding-bottom: 0.75rem;
     justify-content: space-between;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    /* shadow-md */
 }
 
 .header-content {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    /* gap-3 */
 }
 
 .menu-button {
@@ -28,9 +25,7 @@ header {
     width: 40px !important;
     height: 40px !important;
     border-radius: 9999px !important;
-    /* rounded-full */
     color: #1f2937 !important;
-    /* text-gray-800 */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -39,17 +34,7 @@ header {
     cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Tailwind ke `hover:!bg-gray-200` ke liye yeh add karein */
+.menu-button:hover {
+    background-color: #e5e7eb !important;
+}

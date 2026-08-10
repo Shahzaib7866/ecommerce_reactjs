@@ -1,11 +1,7 @@
-
-
 import './globals.css'
-// import Navbar from '../components/Navbar/Navbar'
-// import Footer from '../components/Footer/Footer'
 import { Poppins } from 'next/font/google'
+import { cookies } from 'next/headers'
 import Providers from '../components/Providers'
-// import CartDrawer from '../components/cartDrawer/cartdrawer'
 import LayoutWrapper from '../components/LayoutWrapper'
 
 const poppins = Poppins({ 
@@ -18,28 +14,23 @@ export const metadata = {
   description: 'New Collections For Everyone',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const cookieStore = await cookies()
+  const theme = cookieStore.get('app_theme')?.value || 'light'
+
   return (
-    <html lang="en" className="app">
+    <html lang="en" className={theme === 'dark' ? 'app dark' : 'app'}>
       <body className={poppins.className} suppressHydrationWarning={true}>
-        <Providers>
-           {/* <Navbar /> 
-          <CartDrawer />  */}
+        <Providers theme={theme}>
           <LayoutWrapper>
-          {/* <div style={{ paddingTop: '18px' }}> */}
-          <div>
-            {children}
-          </div>
-            </LayoutWrapper>
+            <div>
+              {children}
+            </div>
+          </LayoutWrapper>
         </Providers>
       </body>
     </html>
   )
 }
-
-
-
-
-
 
 
