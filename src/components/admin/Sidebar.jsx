@@ -15,7 +15,11 @@ import { Collapse } from 'react-collapse';
 const Sidebar = () => {
   // Har menu item ke index ko track karne ke liye aik object state
   const [openSubmenus, setOpenSubmenus] = useState({});
+// const [isOpen, setIsOpen] = useState(true);
 
+// const toggleSidebar = () =>{
+//   !setIsOpen();
+// }
   // Toggle function jo check karega ke agar already open hai toh close kar de, warna open kar de
   const toggleTab = (index) => {
     setOpenSubmenus((prev) => ({

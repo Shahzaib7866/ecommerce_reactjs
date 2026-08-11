@@ -76,25 +76,27 @@
   width: 100%;
   min-height: 100vh;
 }
-
-/* Main Dashboard Box */
-.box_dashbiard {
-  width: 100%;
+/* Main Dashboard Banner Box */
+.box_dashboard {
+  width: auto;
   height: 250px;
+  margin-right: 0.75rem; 
+  margin-left: 0.75rem;
   margin-bottom: 1rem;
   /* mb-4 */
   border-radius: 0.375rem;
   /* rounded-md */
   border: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 1.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
   /* p-5 */
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
-  /* Light mode background */
   color: #111827;
-  /* Light mode text color */
 }
 
 /* Left Column Container */
@@ -105,7 +107,7 @@
   /* gap-4 */
 }
 
-/* Main Heading (Good Morning, Cameron) */
+/* Heading (Good Morning, Cameron) */
 .left_col h1 {
   font-size: 35px;
   font-weight: bold;
@@ -122,44 +124,40 @@
   margin: 0;
 }
 
-/* Custom Button Styling */
-.box_dashbiard .menu-button,
-/* ya jo bhi button class ho */
-.box_dashbiard button {
+/* Action Button Style */
+.box_dashboard button {
   background-color: #111827;
-  /* !bg-dark */
   color: #ffffff;
-  /* !text-white */
   text-transform: capitalize;
-  /* !capitalize */
-  font-weight: 600;
-  /* !font-[600] */
-  padding-left: 1rem;
-  /* px-4 */
-  padding-right: 1rem;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
 }
 
-/* --- DARK MODE STYLES FOR THIS COMPONENT --- */
-html.dark .box_dashbiard {
+/* --- DARK MODE STYLES --- */
+html.dark .box_dashboard {
   background-color: #1f2937;
   /* Dark background */
   border-color: rgba(255, 255, 255, 0.1);
   color: #f3f4f6;
-  /* White/Light text */
 }
 
 html.dark .left_col p {
   color: #9ca3af;
-  /* Lighter gray for dark mode readability */
+  /* Light gray for readability in dark mode */
 }
 
-html.dark .box_dashbiard button {
+html.dark .box_dashboard button {
   background-color: #ffffff;
   color: #111827;
 }
+
 
 .children-wrapper{
   padding-top: 80px;
@@ -189,6 +187,14 @@ html.dark .box_dashbiard button {
 }
 
 
+.right_col{
+  width: 400px;
+  height: auto;
 
+}
+.right_col img{
+  width: 100%;
+  height: auto;
+}
 
 

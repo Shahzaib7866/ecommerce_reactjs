@@ -39,7 +39,6 @@ const Box = (props) => {
 
       </div> 
       
-    
 <hr />
 
 <div className='lower-content'>
@@ -63,8 +62,6 @@ const Box = (props) => {
 </div>
 
         </div>
-
-
 
 
     </div>

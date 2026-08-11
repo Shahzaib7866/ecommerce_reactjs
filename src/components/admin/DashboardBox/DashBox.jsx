@@ -18,7 +18,7 @@ const DashBox = () => {
     <div className='dashBox'>
 
         <Swiper
-            spaceBetween={30}
+            spaceBetween={20}
             slidesPerView={3}
             className="mySwiper"
             modules={[Navigation]}
@@ -51,7 +51,7 @@ const DashBox = () => {
     icon={<FiPieChart size={40} color='#10b981' />}
     count="$5,321.00"
     color="#10b981"
-    progress={true}
+    progress={false}
     chartData={[
     { uv: 400, pv: 1398, amt: 2210 },
     { uv: 1200, pv: 2400, amt: 2400 },
