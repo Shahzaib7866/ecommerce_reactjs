@@ -4,6 +4,8 @@ import React from 'react'
 import './dashBox.css'
 import { BarChart, Bar } from 'recharts';
 import { FiChevronsUp } from 'react-icons/fi';
+import { FiChevronsDown } from "react-icons/fi";
+
 
 
 const Box = (props) => {
@@ -31,7 +33,7 @@ const Box = (props) => {
     barGap={1}
     margin={{ top: 2, right: 2, left: 2, bottom: 2 }}
   >
-            <Bar dataKey="uv" fill="#3b82f6" barSize={10} radius={[3, 3, 0, 0]} />
+            <Bar dataKey="uv" fill={props.color} barSize={10} radius={[3, 3, 0, 0]} />
           </BarChart>
         </div>
 
@@ -41,11 +43,22 @@ const Box = (props) => {
 <hr />
 
 <div className='lower-content'>
-    <span className='uper-span'>
-        <FiChevronsUp size={20} />
-        +32.40%
-        </span>
-            <span className='lower-span'>from last month</span>
+
+<span 
+  className='uper-span' 
+  style={{ color: props.progress ? 'green' : 'red' }}
+>
+  {props.progress ? <FiChevronsUp size={20} /> : <FiChevronsDown size={20} />}
+  {props.progress ? " +32.40%" : " -15.20%"}
+</span>
+
+            <span className='lower-span'>
+              {
+                props.progress === true ? "Increased " : "Decreased "
+              }
+              from last month
+              
+              </span>
 
 </div>
 

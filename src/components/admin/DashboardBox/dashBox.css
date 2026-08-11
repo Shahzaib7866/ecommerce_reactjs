@@ -10,6 +10,7 @@
     flex-direction: column;
     gap: 0.75rem;
     border-radius: 0.375rem;
+    background-color: #E5E7EB;
 }
 
 .upper-content {
@@ -25,6 +26,20 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+}
+
+/* Swiper Navigation Arrows ka size chota karne ke liye */
+.dashBox .swiper-button-next,
+.dashBox .swiper-button-prev {
+  font-size: 10px !important; /* Arrow ka size yahan se chota hoga */
+  width: 20px !important;     /* Button ka container chota karne ke liye */
+  height: 20px !important;
+}
+
+/* Agar arrows ke andar ka icon (jo font-size se control hota hai) mazeed chota karna ho */
+.dashBox .swiper-button-next::after,
+.dashBox .swiper-button-prev::after {
+  font-size: 14px !important; 
 }
 
 .leftCol {
@@ -84,4 +99,43 @@
 .lower-span {
     color: #6b7280;
     /* Muted gray color for descriptive text */
+}
+
+/* --- DARK MODE STYLES --- */
+
+html.dark .box {
+    background-color: #1f2937;
+    /* Dark grayish background (Tailwind gray-850 ya gray-800) */
+    border-color: rgba(255, 255, 255, 0.1);
+    /* Dark mode mein halki border */
+    color: #f3f4f6;
+    /* Text ka color white/light gray ho jaye ga */
+}
+
+/* Agar headings ka color dark mode mein white ya light karna ho */
+html.dark .info h4 {
+    color: #9ca3af;
+    /* Muted gray for title */
+}
+
+html.dark .info h5 {
+    color: #ffffff;
+    /* Bright white for counts/digits */
+}
+
+/* Box ke andar wali horizontal rule (hr) ki line dark mode mein */
+html.dark .upper-content hr {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Lower content descriptive text dark mode mein */
+html.dark .lower-span {
+    color: #9ca3af;
+    /* Thoda behtar visible gray color */
+}
+
+/* Swiper navigation arrows dark mode mein (agar zaroorat ho) */
+html.dark .dashBox .swiper-button-next,
+html.dark .dashBox .swiper-button-prev {
+    color: #ffffff !important;
 }
