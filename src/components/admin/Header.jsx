@@ -8,7 +8,7 @@ import SearchBox from './SearchBox';
 import { MdLightMode, MdDarkMode } from "react-icons/md"; // MdDarkMode import kiya
 import { FaRegBell } from 'react-icons/fa6';
 import { ThemeContext } from '../../context/ThemeContext'; // Apne folder path ke mutabiq adjust karein
-
+import { AiOutlineMenu } from 'react-icons/ai';
 
 const Header = () => {
 
@@ -19,11 +19,15 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <header className={`header ${isToggleSidebar ? 'shrink' : ''}`}>
     
       <div className="header-content">
         <Button className="menu-button" onClick={toggleNav}>
-          <HiMenuAlt2 size={24} />
+
+{
+  isToggleSidebar === false ?  <HiMenuAlt2 size={24} /> : <AiOutlineMenu size={24}/>
+
+}
         </Button>
 
         <SearchBox placeholder="Search..." width="300px" />

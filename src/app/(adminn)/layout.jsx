@@ -1,7 +1,9 @@
 import { cookies } from 'next/headers';
 import "../(adminn)/dashboard/admin.css";
-import Providers from '../../components/Providers';
-import AdminDashboardWrapper from '../../components/admin/AdminDashboardWrapper';
+import Sidebar from "../../components/admin/Sidebar";
+import Header from "../../components/admin/Header";
+import Providers from '../../components/Providers'
+import LayoutWrapper from '../../components/admin/AdminDashboardWrapper'
 
 export const metadata = {
   title: "Admin Dashboard",
@@ -13,11 +15,13 @@ export default async function AdminLayout({ children }) {
   const theme = cookieStore.get('app_theme')?.value || 'light';
 
   return (
-    <Providers theme={theme}>
-      <AdminDashboardWrapper>
-        {children}
-      </AdminDashboardWrapper>
-    </Providers>
+    <div className="main">
+      <Providers theme={theme}>
+        <LayoutWrapper sidebar={<Sidebar />} header={<Header />}>
+          {children}
+        </LayoutWrapper>
+      </Providers>
+    </div>
   );
 }
 

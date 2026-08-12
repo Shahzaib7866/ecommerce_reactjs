@@ -1,138 +1,31 @@
-/* 
-.sidebar{
-    width: 18%;
-    height: 100%;
 
-    /* height: screen -> 100vh fills the full viewport height */
-    /* height: 100vh; */
-    
-    /* max-h-screen */
-    /* max-height: 100vh; */
-
-    /* overflow-y-scroll overflow-x-hidden */
-    /* overflow-x: hidden;
-    overflow-y: scroll; */
-    
-    /* p-3 -> 0.75rem (12px) padding on all sides */
-    /* padding: 0.75rem; */
-    
-    /* border-r-[1px] border-[rgba(0,0,0,0.1)] */
-    /* border-right: 1px solid rgba(0, 0, 0, 0.1); */
-    
-    /* fixed top-0 left-0 */
-    /* position: fixed;
-    top: 0;
-    left: 0;
-
-} */
-
-/* .sidebar-menu{
-    margin-top: 12px;
-}
-
-.list {
-    width: 100%;
-    box-sizing: border-box;
-} */
-
-/* List item ke liye */
-/* .menu-item-li {
-    width: 100%;
-    margin-right: 4px;
-} */
-
-/* Button ke liye */
-/* .menu-btn {
-    width: 100%;
-    text-transform: capitalize !important;
-    text-align: left;
-    display: flex;
-    justify-content: flex-start !important;
-    color: #374151 !important; */
-    /* agar gap aur justify-start kaam karein */
-    /* gap: 8px;
-    font-weight: 600 !important;
-    padding: 12px 8px !important;
-    border-radius: 4px !important;
-    color: dark !important;
-    transition: all 0.3s ease-in-out !important;
-    color: lightgray !important;
-} */
-
-
- .sidebar {
-     width: 18%;
-     height: 100vh;
-     max-height: 100vh;
-     overflow-x: hidden;
-     overflow-y: scroll;
-     padding: 0.75rem;
-     background-color: var(--sidebar-bg);
-     border-right: 1px solid var(--border-color);
-     position: fixed;
-     top: 0;
-     left: 0;
- }
-
- .sidebar-menu {
-     margin-top: 12px;
- }
-
- .list {
-     width: 100%;
-     box-sizing: border-box;
- }
-
- .menu-item-li {
-     width: 100%;
-     margin-right: 4px;
- }
-
- /* Material UI text buttons will inherit or use variables */
- .menu-btn {
-     width: 100% !important;
-     text-transform: capitalize !important;
-     text-align: left !important;
-     display: flex !important;
-     justify-content: flex-start !important;
-     gap: 8px !important;
-     font-weight: 600 !important;
-     padding: 12px 8px !important;
-     border-radius: 4px !important;
-     color: var(--text-main) !important;
-     transition: all 0.3s ease-in-out !important;
- }
-
- .menu-btn:hover {
-     background-color: var(--border-color) !important;
- }
-
-/* Submenu Container */
-.submenu {
-    margin-top: 4px;
-    margin-left: 12px;
-    padding-left: 8px;
-    border-left: 1px dashed var(--border-color, rgba(0, 0, 0, 0.2));
-}
-
+/* ==========================================
+   1. MAIN SIDEBAR CONTAINER & LAYOUT
+   ================================---------- */
 .sidebar {
-    width: 18%;
+    width: 250px;
+    /* Expanded width */
     height: 100vh;
     max-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    padding: 0.75rem;
-    background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
     position: fixed;
     top: 0;
     left: 0;
+    padding: 0.75rem;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    overflow-x: hidden;
+    overflow-y: auto;
+    white-space: nowrap;
+    transition: width 0.3s ease-in-out;
 }
 
 .sidebar-menu {
     margin-top: 12px;
 }
 
+/* ==========================================
+   2. LIST & MENU ITEMS
+   ================================---------- */
 .list {
     width: 100%;
     box-sizing: border-box;
@@ -142,33 +35,23 @@
 }
 
 .menu-list {
-position: relative;
+    display: flex !important;
+    justify-content: center !important;
+    position: relative;
     width: 100%;
     margin-bottom: 6px;
+    margin-left: 2px;
 }
 
-.submenu-toggle {
-    position: absolute;
-    right: 12px;
-    top: 14px;
-    /* Isko aap apne menu-btn ki height ke mutabiq adjust kar sakte hain */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-main);
-    opacity: 0.7;
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
+.menu-item-li {
+    width: 100%;
+    margin-right: 4px;
 }
 
-/* FaAngleDown icon ki smooth transition aur rotation ke liye */
-.submenu-toggle svg {
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Jab toggleIndex match karega to yeh class chalay gi aur icon 180 degree ghoom jaye ga */
-.rotate-180 {
-    transform: rotate(180deg);
+.menu-link {
+    text-decoration: none;
+    display: block;
+    width: 100%;
 }
 
 /* Main Menu Button */
@@ -190,19 +73,14 @@ position: relative;
     background-color: var(--border-color) !important;
 }
 
-.menu-link {
-    text-decoration: none;
-    /* color: inherit;
-    display: inline-block; */
-}
-
-/* --- SUBMENU SECTION STYLING --- */
+/* ==========================================
+   3. SUBMENU SECTION STYLING
+   ================================---------- */
 .submenu {
     width: 100%;
-    padding-left: 1.2rem;
-    /* Submenu ko thoda right shift karne ke liye */
     margin-top: 4px;
     margin-bottom: 4px;
+    padding-left: 1.2rem;
 }
 
 .submenu-list {
@@ -214,7 +92,6 @@ position: relative;
     flex-direction: column;
     gap: 4px;
     border-left: 1px solid var(--border-color);
-    /* Elegant left line effect */
     padding-left: 8px;
 }
 
@@ -228,7 +105,7 @@ position: relative;
     display: block;
 }
 
-/* Submenu Button Styling */
+/* Submenu Button */
 .submenu-btn {
     width: 100% !important;
     text-transform: capitalize !important;
@@ -248,6 +125,8 @@ position: relative;
     opacity: 1;
     background-color: var(--border-color) !important;
 }
+
+/* Submenu Indicator Dot */
 .btn-span {
     display: inline-block;
     width: 6px;
@@ -255,39 +134,51 @@ position: relative;
     background-color: var(--text-main);
     border-radius: 50%;
     margin-right: 8px;
-
 }
 
-
-
-.sidebar {
-    width: 250px;
-    /* apni actual expanded width daal dein */
-    transition: width 0.3s ease;
-    overflow: hidden;
-    white-space: nowrap;
+/* ==========================================
+   4. DROPDOWN TOGGLE & ROTATION
+   ================================---------- */
+.submenu-toggle {
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    opacity: 0.7;
+    cursor: pointer;
 }
 
+.submenu-toggle svg {
+    transition: transform 0.3s ease-in-out;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+/* ==========================================
+   5. SHRINK STATE (COLLAPSED SIDEBAR)
+   ================================---------- */
 .sidebar.shrink {
     width: 70px;
-    /* icon-only width */
+    /* Icon-only width */
 }
 
-/* Text hide karo shrink state mein */
+/* Hide text when collapsed */
 .sidebar.shrink .menu-text {
     display: none;
 }
 
-/* Icons ko center karne ke liye */
+/* Center icons when collapsed */
 .sidebar.shrink .menu-btn {
-    justify-content: center;
-    padding: 10px 0;
+    justify-content: center !important;
+    padding: 10px 0 !important;
 }
 
-/* Logo ka size/position bhi adjust kar sakte hain */
 .sidebar.shrink a {
     display: flex;
     justify-content: center;
 }
-
-

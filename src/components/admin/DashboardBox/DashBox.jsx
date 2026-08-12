@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+
+import React, { useContext, useEffect, useRef } from 'react'
 import './dashBox.css'
 import Box from './Box';
 
@@ -6,24 +8,42 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-
 import { Navigation } from 'swiper/modules';
 import { GoGift } from 'react-icons/go';
 import { FiPieChart } from 'react-icons/fi';
 import { BsBank } from 'react-icons/bs';
 import { LuUsers } from 'react-icons/lu';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 const DashBox = () => {
+  const swiperRef = useRef(null);
+  const { isToggleSidebar } = useContext(ThemeContext);
+
+  useEffect(() => {
+    // Sidebar ki CSS transition (0.3s) khatam hone ke baad Swiper ko force update karo
+    const timer = setTimeout(() => {
+      if (swiperRef.current) {
+        swiperRef.current.update();
+      }
+    }, 320);
+
+    return () => clearTimeout(timer);
+  }, [isToggleSidebar]);
+
   return (
     <div className='dashBox'>
+      <Swiper
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+        spaceBetween={20}
+        slidesPerView={3}
+        className="mySwiper"
+        modules={[Navigation]}
+        navigation={true}
+        observer={true}
+        observeParents={true}
+        resizeObserver={true}
+      >
 
-        <Swiper
-            spaceBetween={20}
-            slidesPerView={3}
-            className="mySwiper"
-            modules={[Navigation]}
-            navigation={true}
-        >
             <SwiperSlide> 
                 <Box
     title="New Orders"

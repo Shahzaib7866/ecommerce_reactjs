@@ -5,7 +5,7 @@ import { ThemeContext } from './ThemeContext';
 
 const ThemeContextProvider = ({ children, initialTheme }) => {
   const [theme, setTheme] = useState(initialTheme || 'light');
-  const [isToggleSidebar, setisToggleSidebar] = useState(false);
+  const [isToggleSidebar, setisToggleSidebar] = useState(true);
 
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';

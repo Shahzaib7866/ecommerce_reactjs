@@ -1,9 +1,9 @@
 header {
     display: flex;
-    width: 82%;
     position: fixed;
     top: 0;
-    right: 0;
+    left: 250px;
+    width: calc(100% - 250px);
     z-index: 100;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -12,7 +12,12 @@ header {
     justify-content: space-between;
     background-color: var(--sidebar-bg);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    transition: background-color 0.2s ease-in-out;
+    transition: left 0.3s ease, width 0.3s ease, background-color 0.2s ease-in-out;
+}
+
+header.shrink {
+    left: 70px;
+    width: calc(100% - 70px);
 }
 
 .header-content {

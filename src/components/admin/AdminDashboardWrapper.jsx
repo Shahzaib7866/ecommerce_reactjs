@@ -11,8 +11,9 @@ export default function AdminDashboardWrapper({ children }) {
   const { isToggleSidebar } = useContext(ThemeContext);
 
   return (
-    <div className={`main ${isToggleSidebar ? 'sidebar-active' : ''}`}>
-      <div className="sidebar-wrapper">
+<div className={`main ${isToggleSidebar ? 'shrink' : ''}`}>      
+  
+  <div className="sidebar-wrapper">
         <Sidebar />
       </div>
 

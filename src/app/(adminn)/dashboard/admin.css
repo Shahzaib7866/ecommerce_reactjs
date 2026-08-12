@@ -1,60 +1,4 @@
-/* .admin-page {
-  /* Poori available height aur width cover karne ke liye */
-  /* width: 100%;
-  /* min-height: 100vh;
-  background-color: #f4f4f4;  */
 
-  /* Browser ke default margins/paddings khatam karne ke liye */
-  /* margin: 0;
-  padding: 0; */
-  /* scroll-behavior: smooth;
-  background-color: var(--background); */
- 
-/* }
-
-.admin-page h1 {
-  color: #333;
-  /* H1 tag ka default top/bottom margin khatam karne ke liye */
-  /* margin: 0;
-  padding: 20px; */ 
-  /* Agar andar thodi padding chahiye ho */
-    /* color: dark !important;
-      color: lightgray !important; */
-/* } */
-
-/* .main {
-  display: flex;
-  width: 100%;
-  
-} */
-
-/* 🌙 Dark Theme Palette */
-/* .main.dark {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --sidebar-bg: #1e1e1e;
-  --content-bg: #181818;
-  color-scheme: dark;
-} */
-
-/* ☀️ Light Theme Palette */
-/* .main.light {
-  --bg-color: #f4f6f8;
-  --text-color: #212529;
-  --sidebar-bg: #ffffff;
-  --content-bg: #ffffff;
-  color-scheme: light;
-}
-
-.sidebar-wrapper {
-  width: 18%;
-  height: 100vh;
-}
-
-.right-content {
-  width: 82%;
- 
-}  */
 
 .admin-page {
   width: 100%;
@@ -75,6 +19,9 @@
   display: flex;
   width: 100%;
   min-height: 100vh;
+  background-color: var(--content-bg, #f9fafb);
+  overflow-x: hidden;
+  position: relative;
 }
 /* Main Dashboard Banner Box */
 .box_dashboard {
@@ -97,6 +44,8 @@
   justify-content: space-between;
   background-color: #ffffff;
   color: #111827;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
 }
 
 /* Left Column Container */
@@ -104,7 +53,9 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* gap-4 */
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
 }
 
 /* Heading (Good Morning, Cameron) */
@@ -177,24 +128,100 @@ html.dark .box_dashboard button {
 }
 
 .sidebar-wrapper {
-  width: 18%;
+  width: 250px;
+  flex-shrink: 0;
   height: 100vh;
+  position: sticky;
+  top: 0;
+  transition: width 0.3s ease-in-out;
+  background-color: var(--sidebar-bg, #ffffff);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
+.sidebar-wrapper.shrink {
+  width: 70px;
+}
+
+/* Right Content Area */
 .right-content {
-  width: 82%;
-  background-color: var(--content-bg);
+  flex: 1;
+  min-width: 0;
+  /* Prevents flex items from overflowing */
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
 }
 
+/* Jab Sidebar Shrink Ho Jaye (.main ke sath .shrink class aayegi) */
+.main.shrink .sidebar-wrapper {
+  width: 70px;
+  /* Shrinked sidebar width */
+}
 
-.right_col{
+.right_col {
   width: 400px;
   height: auto;
-
+  flex-shrink: 0;
 }
+
 .right_col img{
   width: 100%;
   height: auto;
 }
 
+
+
+/* Main Container */
+.graphs-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* Left column double space lega, right single */
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+/* Common Card Styling */
+.card {
+  background-color: var(--content-bg, #ffffff);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+/* Left Bada Graph Card */
+.large-card {
+  height: 420px;
+  /* Aap apne hisab se height adjust kar sakte hain */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right Column jisme 2 chote graphs honge */
+.right-cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* Dono chote graphs ke darmiyan fasla */
+}
+
+/* Right ke Chote Graphs */
+.small-card {
+  height: 200px;
+  /* Bade graph ki height ke half ke barabar */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Responsive for Smaller Screens --- */
+@media (max-width: 992px) {
+  .graphs-container {
+    grid-template-columns: 1fr;
+    /* Choti screen par sab ek ke neeche ek aa jayenge */
+  }
+}
 
