@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { HiMenuAlt2 } from "react-icons/hi";
 import { Button } from '@mui/material';
 import './header.css'
@@ -12,14 +12,17 @@ import { ThemeContext } from '../../context/ThemeContext'; // Apne folder path k
 
 const Header = () => {
 
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme, isToggleSidebar, setisToggleSidebar } = useContext(ThemeContext);
 
+  const toggleNav = () =>{
+    setisToggleSidebar(!isToggleSidebar);
+  }
 
   return (
     <header className="header">
-      {/* Left Side: Menu, Search, aur Bell icon */}
+    
       <div className="header-content">
-        <Button className="menu-button">
+        <Button className="menu-button" onClick={toggleNav}>
           <HiMenuAlt2 size={24} />
         </Button>
 

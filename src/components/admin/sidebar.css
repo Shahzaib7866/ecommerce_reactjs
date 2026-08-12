@@ -260,6 +260,34 @@ position: relative;
 
 
 
+.sidebar {
+    width: 250px;
+    /* apni actual expanded width daal dein */
+    transition: width 0.3s ease;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
+.sidebar.shrink {
+    width: 70px;
+    /* icon-only width */
+}
+
+/* Text hide karo shrink state mein */
+.sidebar.shrink .menu-text {
+    display: none;
+}
+
+/* Icons ko center karne ke liye */
+.sidebar.shrink .menu-btn {
+    justify-content: center;
+    padding: 10px 0;
+}
+
+/* Logo ka size/position bhi adjust kar sakte hain */
+.sidebar.shrink a {
+    display: flex;
+    justify-content: center;
+}
 
 

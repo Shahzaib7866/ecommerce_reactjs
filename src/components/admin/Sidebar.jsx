@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Image from 'next/image'
 import './sidebar.css'
 import Link from 'next/link'
@@ -9,17 +9,14 @@ import { sidebarMenu } from '@/constants/data'
 import { getImageUrl } from '@/constants/cloudinary'
 import { Button } from '@mui/material'
 import { FaAngleDown } from "react-icons/fa";
-
+import { ThemeContext } from '../../context/ThemeContext';
 import { Collapse } from 'react-collapse';
 
 const Sidebar = () => {
   // Har menu item ke index ko track karne ke liye aik object state
   const [openSubmenus, setOpenSubmenus] = useState({});
 // const [isOpen, setIsOpen] = useState(true);
-
-// const toggleSidebar = () =>{
-//   !setIsOpen();
-// }
+const { isToggleSidebar } = useContext(ThemeContext);
   // Toggle function jo check karega ke agar already open hai toh close kar de, warna open kar de
   const toggleTab = (index) => {
     setOpenSubmenus((prev) => ({
@@ -28,9 +25,15 @@ const Sidebar = () => {
     }));
   };
 
+useEffect(() => {
+  if (isToggleSidebar) {
+    setOpenSubmenus({});
+  }
+}, [isToggleSidebar]);
+
   return (
-    <aside className='sidebar'>
-      <Link href="/"> 
+<aside className={`sidebar ${isToggleSidebar ? 'shrink' : ''}`}>      
+  <Link href="/"> 
         <Image 
           src={getImageUrl("logo.png")} 
           alt="Wearit logo" 
@@ -50,18 +53,18 @@ const Sidebar = () => {
                   {
                     menu?.submenu?.length > 0 ? 
                       <Button variant="text" className='menu-btn' onClick={() => toggleTab(i)}>
-                        {menu?.icon} {menu?.title}
+                        {menu?.icon} <span className="menu-text">{menu?.title}</span>
                       </Button>
                     :
                       <Link href={menu?.href} className='menu-link'>
                         <Button variant="text" className='menu-btn'>
-                          {menu?.icon} {menu?.title}
+                          {menu?.icon} <span className="menu-text">{menu?.title}</span>
                         </Button>
                       </Link>
                   }
 
                   {
-                    menu?.submenu?.length > 0 && (
+                    menu?.submenu?.length > 0 && !isToggleSidebar && (
                       <span className='submenu-toggle' onClick={() => toggleTab(i)}>
                         <FaAngleDown size={18} className={isOpen ? 'rotate-180' : ''} />
                       </span>
@@ -78,7 +81,7 @@ const Sidebar = () => {
                                 <Link href={sub?.href} className='submenu-link'>
                                   <Button variant="text" className='submenu-btn'>
                                     <span className='btn-span'></span>
-                                    {sub?.title}
+                                   <span className="menu-text">{sub?.title}</span>
                                   </Button>
                                 </Link>
                               </li>
