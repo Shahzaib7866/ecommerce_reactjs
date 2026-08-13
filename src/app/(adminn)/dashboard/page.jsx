@@ -47,15 +47,26 @@ const page = () => {
 </div>
     <DashBox />
   
-
- <div className='graphs-container'>
-      {/* Left Column: Bada Graph */}
+<div className='graphs-container'>
+      
+      {/* Left Column: Bada Graph Card */}
       <div className='card large-card'>
-        <h3>Main Large Graph</h3>
-        {/* Yahan aap apna bada chart/graph component daal sakte hain */}
+        <div className='card-header'>
+          <div className='title-box'>
+            <h3 className='card-title'>Total Profit</h3>
+            <span className='card-amount'>$8,948.00</span>
+          </div>
+          <Button variant="outlined" className='details-btn'>
+            Details
+          </Button>
+        </div>
+
+        <div className='card-body-chart'>
+          {/* Yahan apna bada chart/graph daal dein */}
+        </div>
       </div>
 
-      {/* Right Column: Do Chote Graphs */}
+      {/* Right Column: Do Chote Graphs (Yeh bade card ke BAHAR hai) */}
       <div className='right-cards-column'>
         <div className='card small-card'>
           <h3>Small Top Graph</h3>
@@ -64,6 +75,7 @@ const page = () => {
           <h3>Small Bottom Graph</h3>
         </div>
       </div>
+
     </div>
 
     </>

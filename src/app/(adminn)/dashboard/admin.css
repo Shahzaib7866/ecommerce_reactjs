@@ -171,12 +171,11 @@ html.dark .box_dashboard button {
 }
 
 
-
-/* Main Container */
+/* Main Grid Container (2 Columns) */
 .graphs-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  /* Left column double space lega, right single */
+  /* Left bada, Right chota */
   gap: 1rem;
   width: 100%;
   box-sizing: border-box;
@@ -188,17 +187,68 @@ html.dark .box_dashboard button {
   background-color: var(--content-bg, #ffffff);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
-  padding: 1rem;
+  padding: 1.25rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
+  color: var(--text-main, #111827);
 }
 
-/* Left Bada Graph Card */
+/* Left Bada Graph Card Layout */
 .large-card {
   height: 420px;
-  /* Aap apne hisab se height adjust kar sakte hain */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Header Section (Title + Amount on Left, Button on Right) */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Title & Amount Group */
+.title-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-title {
+  font-size: 18px;
+  color: #5a5959;
+  margin: 0;
+  font-weight: 600;
+}
+
+.card-amount {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Details Button */
+.details-btn {
+  text-transform: capitalize !important;
+  font-weight: 600 !important;
+  padding: 4px 12px !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  color: var(--text-main, #111827) !important;
+}
+
+.details-btn:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Graph Body Container */
+.card-body-chart {
+  width: 100%;
+  height: calc(100% - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Right Column jisme 2 chote graphs honge */
@@ -211,17 +261,36 @@ html.dark .box_dashboard button {
 
 /* Right ke Chote Graphs */
 .small-card {
-  height: 200px;
-  /* Bade graph ki height ke half ke barabar */
+  height: 202px;
+  /* (420px total - 16px gap) / 2 */
   display: flex;
   flex-direction: column;
+}
+
+/* --- Dark Mode Support --- */
+html.dark .card {
+  background-color: #1f2937;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f3f4f6;
+}
+
+html.dark .card-title {
+  color: #9ca3af;
+}
+
+html.dark .details-btn {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark .details-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 /* --- Responsive for Smaller Screens --- */
 @media (max-width: 992px) {
   .graphs-container {
     grid-template-columns: 1fr;
-    /* Choti screen par sab ek ke neeche ek aa jayenge */
   }
 }
 
