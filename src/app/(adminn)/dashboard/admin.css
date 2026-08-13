@@ -174,12 +174,14 @@ html.dark .box_dashboard button {
 /* Main Grid Container (2 Columns) */
 .graphs-container {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 950px 466px;
   /* Left bada, Right chota */
-  gap: 1rem;
+  gap: 0.25rem;
   width: 100%;
   box-sizing: border-box;
-  padding: 1rem;
+  padding-left: 0.75rem;
+  padding-right: 0.25rem;
+  padding-bottom: 0.5rem;
 }
 
 /* Common Card Styling */
@@ -219,7 +221,7 @@ html.dark .box_dashboard button {
 .card-title {
   font-size: 18px;
   color: #5a5959;
-  margin: 0;
+  margin-top: -10px;
   font-weight: 600;
 }
 
@@ -233,9 +235,8 @@ html.dark .box_dashboard button {
 .details-btn {
   text-transform: capitalize !important;
   font-weight: 600 !important;
-  padding: 4px 12px !important;
-  border-color: rgba(0, 0, 0, 0.2) !important;
-  color: var(--text-main, #111827) !important;
+  transform: translateY(-10px);
+
 }
 
 .details-btn:hover {
@@ -249,23 +250,93 @@ html.dark .box_dashboard button {
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 /* Right Column jisme 2 chote graphs honge */
+/* Right Column Layout */
 .right-cards-column {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* Dono chote graphs ke darmiyan fasla */
+  margin-left: 16px;
 }
 
-/* Right ke Chote Graphs */
+/* Small Card Base Styling (Height 202px maintained) */
 .small-card {
   height: 202px;
-  /* (420px total - 16px gap) / 2 */
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
 }
+
+/* Top Products Card Specific Inner Layout */
+.top-products-card {
+  padding: 1.25rem;
+}
+
+/* Header inside Top Products Card */
+.top-products-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.top-products-header h3 {
+  /* margin: 0; */
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Product Row List Styling */
+.top-products-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--border-color, rgba(0, 0, 0, 0.02));
+  padding: 10px 12px;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.product-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.products-name {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  margin-left: 12px;
+}
+
+.products-name h4 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.products-name p {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.product-percentage {
+  font-weight: bold;
+  font-size: 14px;
+  color: #10b981;
+  /* Green color for positive percentage */
+}
+
 
 /* --- Dark Mode Support --- */
 html.dark .card {
@@ -281,6 +352,7 @@ html.dark .card-title {
 html.dark .details-btn {
   color: #ffffff !important;
   border-color: rgba(255, 255, 255, 0.2) !important;
+
 }
 
 html.dark .details-btn:hover {
