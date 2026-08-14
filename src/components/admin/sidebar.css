@@ -1,10 +1,8 @@
-
 /* ==========================================
    1. MAIN SIDEBAR CONTAINER & LAYOUT
    ================================---------- */
 .sidebar {
     width: 250px;
-    /* Expanded width */
     height: 100vh;
     max-height: 100vh;
     position: fixed;
@@ -35,17 +33,9 @@
 }
 
 .menu-list {
-    display: flex !important;
-    justify-content: center !important;
     position: relative;
     width: 100%;
     margin-bottom: 6px;
-    margin-left: 2px;
-}
-
-.menu-item-li {
-    width: 100%;
-    margin-right: 4px;
 }
 
 .menu-link {
@@ -61,9 +51,9 @@
     text-align: left !important;
     display: flex !important;
     justify-content: flex-start !important;
-    gap: 8px !important;
+    gap: 10px !important;
     font-weight: 600 !important;
-    padding: 10px 8px !important;
+    padding: 10px 12px !important;
     border-radius: 4px !important;
     color: var(--text-main) !important;
     transition: all 0.2s ease-in-out !important;
@@ -80,7 +70,7 @@
     width: 100%;
     margin-top: 4px;
     margin-bottom: 4px;
-    padding-left: 1.2rem;
+    padding-left: 1.5rem;
 }
 
 .submenu-list {
@@ -91,8 +81,8 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    border-left: 1px solid var(--border-color);
-    padding-left: 8px;
+    border-left: 2px solid var(--border-color);
+    padding-left: 10px;
 }
 
 .submenu-item {
@@ -112,6 +102,7 @@
     text-align: left !important;
     display: flex !important;
     justify-content: flex-start !important;
+    align-items: center !important;
     font-size: 0.85rem !important;
     font-weight: 500 !important;
     padding: 8px 10px !important;
@@ -134,6 +125,7 @@
     background-color: var(--text-main);
     border-radius: 50%;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 /* ==========================================
@@ -142,13 +134,15 @@
 .submenu-toggle {
     position: absolute;
     right: 12px;
-    top: 14px;
+    top: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-main);
     opacity: 0.7;
     cursor: pointer;
+    padding: 4px;
+    z-index: 2;
 }
 
 .submenu-toggle svg {
@@ -165,7 +159,6 @@
 .sidebar.shrink {
     width: 70px;
     overflow: visible !important;
-    /* Icon-only width */
 }
 
 /* Hide text when collapsed */
@@ -173,16 +166,29 @@
     display: none;
 }
 
-/* Center icons when collapsed */
+/* Hide arrow toggle when collapsed */
+.sidebar.shrink .submenu-toggle {
+    display: none !important;
+}
+
+/* Center icons completely when collapsed */
 .sidebar.shrink .menu-btn {
     justify-content: center !important;
     padding: 10px 0 !important;
+    gap: 0 !important;
+}
+
+.sidebar.shrink .menu-list {
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar.shrink a {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
+
 /* ==========================================
    6. TOOLTIP FOR COLLAPSED SIDEBAR
    ================================---------- */
@@ -190,7 +196,6 @@
     position: relative;
 }
 
-/* Create the tooltip box only when sidebar is shrinked */
 .sidebar.shrink .menu-btn:hover::after {
     content: attr(data-title);
     position: absolute;
@@ -211,6 +216,3 @@
     pointer-events: none;
     text-transform: capitalize;
 }
-
-
-
