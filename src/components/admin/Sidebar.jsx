@@ -32,72 +32,88 @@ useEffect(() => {
 }, [isToggleSidebar]);
 
   return (
-<aside className={`sidebar ${isToggleSidebar ? 'shrink' : ''}`}>      
+
+    <aside className={`sidebar ${isToggleSidebar ? 'shrink' : ''}`}>      
   <Link href="/"> 
-        <Image 
-          src={getImageUrl("logo.png")} 
-          alt="Wearit logo" 
-          width={45} 
-          height={45}  
-        />
-      </Link>
+    <Image 
+      src={getImageUrl("logo.png")} 
+      alt="Wearit logo" 
+      width={45} 
+      height={45}  
+    />
+  </Link>
 
-      <div className='sidebar-menu'>
-        {sidebarMenu?.length !== 0 && (
-          <ul className='list'>
-            {sidebarMenu?.map((menu, i) => {
-              const isOpen = !!openSubmenus[i]; // Check karein ke yeh submenu open hai ya nahi
+  <div className='sidebar-menu'>
+    {sidebarMenu?.length !== 0 && (
+      <ul className='list'>
+        {sidebarMenu?.map((menu, i) => {
+          const isOpen = !!openSubmenus[i];
 
-              return (
-                <li className='menu-list' key={i}>
-                  {
-                    menu?.submenu?.length > 0 ? 
-                      <Button variant="text" className='menu-btn' onClick={() => toggleTab(i)}>
-                        {menu?.icon} <span className="menu-text">{menu?.title}</span>
-                      </Button>
-                    :
-                      <Link href={menu?.href} className='menu-link'>
-                        <Button variant="text" className='menu-btn'>
-                          {menu?.icon} <span className="menu-text">{menu?.title}</span>
-                        </Button>
-                      </Link>
-                  }
+          return (
+            <li className='menu-list' key={i}>
+              {
+                menu?.submenu?.length > 0 ? 
+                  <Button 
+                    variant="text" 
+                    className='menu-btn' 
+                    onClick={() => toggleTab(i)}
+                    data-title={menu?.title}
+                  >
+                    {menu?.icon} <span className="menu-text">{menu?.title}</span>
+                  </Button>
+                :
+                  <Link href={menu?.href} className='menu-link'>
+                    <Button 
+                      variant="text" 
+                      className='menu-btn'
+                      data-title={menu?.title}
+                    >
+                      {menu?.icon} <span className="menu-text">{menu?.title}</span>
+                    </Button>
+                  </Link>
+              }
 
-                  {
-                    menu?.submenu?.length > 0 && !isToggleSidebar && (
-                      <span className='submenu-toggle' onClick={() => toggleTab(i)}>
-                        <FaAngleDown size={18} className={isOpen ? 'rotate-180' : ''} />
-                      </span>
-                    )
-                  }
+              {
+                menu?.submenu?.length > 0 && !isToggleSidebar && (
+                  <span className='submenu-toggle' onClick={() => toggleTab(i)}>
+                    <FaAngleDown size={18} className={isOpen ? 'rotate-180' : ''} />
+                  </span>
+                )
+              }
 
-                  {menu?.submenu?.length > 0 && (
-                    <Collapse isOpened={isOpen}>
-                      <div className='submenu'>
-                        <ul className='submenu-list'>
-                          {menu.submenu.map((sub, j) => {
-                            return (
-                              <li className='submenu-item' key={j}>
-                                <Link href={sub?.href} className='submenu-link'>
-                                  <Button variant="text" className='submenu-btn'>
-                                    <span className='btn-span'></span>
-                                   <span className="menu-text">{sub?.title}</span>
-                                  </Button>
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    </Collapse>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-    </aside>
+              {menu?.submenu?.length > 0 && (
+                <Collapse isOpened={isOpen}>
+                  <div className='submenu'>
+                    <ul className='submenu-list'>
+                      {menu.submenu.map((sub, j) => {
+                        return (
+                          <li className='submenu-item' key={j}>
+                            <Link href={sub?.href} className='submenu-link'>
+                              <Button 
+                                variant="text" 
+                                className='submenu-btn'
+                                data-title={sub?.title}
+                              >
+                                <span className='btn-span'></span>
+                                <span className="menu-text">{sub?.title}</span>
+                              </Button>
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </Collapse>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    )}
+  </div>
+</aside>
+
+
   )
 }
 

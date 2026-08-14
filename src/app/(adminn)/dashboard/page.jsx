@@ -142,13 +142,37 @@ const page = () => {
     {/* Card Header (Title & Details Button) */}
     <div className='top-products-header'>
       <h3>Top Products</h3>
-      <Button variant="outlined" className='details-btn' style={{marginTop: "6px"}}>
+      <Button variant="outlined" className='details-btn' style={{marginTop: "14px"}}>
         Details
       </Button>
     </div>
 
     {/* Product Item List */}
     <div className='top-products-list'>
+     <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
+     
+      
+      <div className='products-name'>
+        <h4>Black Shirt</h4>
+        <p>$45</p>
+      </div>
+
+      <span className='product-percentage'>+6%</span>
+    </div>
+
+      <div className='top-products-list'>
+     <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
+     
+      
+      <div className='products-name'>
+        <h4>Black Shirt</h4>
+        <p>$45</p>
+      </div>
+
+      <span className='product-percentage'>+6%</span>
+    </div>
+
+        <div className='top-products-list'>
      <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
      
       

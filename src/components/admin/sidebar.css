@@ -164,6 +164,7 @@
    ================================---------- */
 .sidebar.shrink {
     width: 70px;
+    overflow: visible !important;
     /* Icon-only width */
 }
 
@@ -182,3 +183,34 @@
     display: flex;
     justify-content: center;
 }
+/* ==========================================
+   6. TOOLTIP FOR COLLAPSED SIDEBAR
+   ================================---------- */
+.sidebar.shrink .menu-btn {
+    position: relative;
+}
+
+/* Create the tooltip box only when sidebar is shrinked */
+.sidebar.shrink .menu-btn:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 10px;
+    background-color: var(--sidebar-bg, #333);
+    color: var(--text-main, #fff);
+    border: 1px solid var(--border-color, #444);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    pointer-events: none;
+    text-transform: capitalize;
+}
+
+
+

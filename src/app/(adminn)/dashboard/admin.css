@@ -197,7 +197,7 @@ html.dark .box_dashboard button {
 
 /* Left Bada Graph Card Layout */
 .large-card {
-  height: 420px;
+  height: 555px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -264,7 +264,7 @@ html.dark .box_dashboard button {
 
 /* Small Card Base Styling (Height 202px maintained) */
 .small-card {
-  height: 202px;
+  height: 270px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -273,7 +273,7 @@ html.dark .box_dashboard button {
 
 /* Top Products Card Specific Inner Layout */
 .top-products-card {
-  padding: 1.25rem;
+  padding: 1rem;
 }
 
 /* Header inside Top Products Card */
@@ -297,11 +297,14 @@ html.dark .box_dashboard button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background-color: var(--border-color, rgba(0, 0, 0, 0.02));
-  padding: 10px 12px;
+  background-color: var(--border-color, rgba(240, 238, 238, 0.445));
+  padding: 8px 14px;
   border-radius: 6px;
   box-sizing: border-box;
+  cursor: pointer;
 }
+
+
 
 .product-img {
   width: 40px;
