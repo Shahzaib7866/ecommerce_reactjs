@@ -58,11 +58,8 @@ const Box = (props) => {
               from last month
               
               </span>
-
 </div>
-
-        </div>
-
+</div>
 
     </div>
   )

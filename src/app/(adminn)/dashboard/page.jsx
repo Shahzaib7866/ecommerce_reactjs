@@ -1,6 +1,6 @@
 
 "use client"
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './admin.css'
 import DashBox from '../../../components/admin/DashboardBox/DashBox'
 import { FiPlus } from 'react-icons/fi'
@@ -8,7 +8,11 @@ import { getImageUrl } from '@/constants/cloudinary'
 import { Button } from '@mui/material'
 import { ThemeContext } from '../../../context/ThemeContext'
 import { 
-  Area, 
+  Area,
+  ComposedChart,
+  Line,
+  Scatter,
+  Legend, 
   AreaChart, 
   BarChart, 
   Bar, 
@@ -21,6 +25,7 @@ import {
 
 const page = () => {
   const { theme } = useContext(ThemeContext);
+  const [selectedProfit, setSelectedProfit] = useState(0);
 
   // --- Data ---
   const profileData = [
@@ -40,6 +45,74 @@ const page = () => {
     { name: 'Sneakers', stock: 12 },
     { name: 'Jacket', stock: 3 },
   ];
+
+  //sales data
+  const Salesdata = [
+    {
+      name: 'JAN',
+      revenue: 590,
+      expense: 800
+    },
+   {
+      name: 'FEB',
+      revenue: 590,
+      expense: 800
+    },
+    {
+      name: 'MAR',
+      revenue: 700,
+      expense: 1000
+    },
+   {
+      name: 'APR',
+      revenue: 890,
+      expense: 1200
+    },
+   {
+      name: 'MAY',
+      revenue: 390,
+      expense: 700
+    },
+       {
+      name: 'JUN',
+      revenue: 190,
+      expense: 200
+    },
+       {
+      name: 'JUL',
+      revenue: 590,
+      expense: 800
+    },
+           {
+      name: 'AUS',
+      revenue: 1590,
+      expense: 1800
+    },
+           {
+      name: 'SEP',
+      revenue: 590,
+      expense: 800
+    },
+           {
+      name: 'OCT',
+      revenue: 590,
+      expense: 800
+    },
+           {
+      name: 'NOV',
+      revenue: 590,
+      expense: 800
+    },
+               {
+      name: 'DEC',
+      revenue: 590,
+      expense: 800
+    },
+  ]
+
+  const selectProfit=(index)=>{
+    setSelectedProfit(index)
+  }
 
   return (
     <>
@@ -80,6 +153,21 @@ const page = () => {
               Details
             </Button>
           </div>
+
+<div style={{ padding: "5px" }}>
+  <div className="duration-filter">
+    {['5D', '2W', '1M', '6M', '1Y'].map((label, index) => (
+      <span 
+        key={index}
+        className={`duration-item ${selectedProfit === index ? 'bg-gray-300' : ''}`} 
+        onClick={() => selectProfit(index)}
+      >
+        {label}
+      </span>
+    ))}
+  </div>
+</div>
+
 
           <div className='card-body-chart'>
             <ResponsiveContainer width="100%" height="100%">
@@ -167,6 +255,55 @@ const page = () => {
 
         </div>
       </div>
+
+<div className="card salesReport">
+
+  <h2>Sales Report</h2>
+
+  <div className='sales-chart'>
+
+    <ResponsiveContainer width="100%" height="100%">
+      <ComposedChart
+        width={500}
+        height={400}
+        data={Salesdata}
+        margin={{
+          top: 20,
+          right: 20,
+          bottom: 20,
+          left: 20
+        }}
+      >
+        <defs>
+          <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+
+        <XAxis dataKey="name" scale="band" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        
+        <Area 
+          type="monotone" 
+          dataKey="revenue" 
+          stroke="#8884d8" 
+          fillOpacity={1} 
+          fill="url(#colorRevenue)" 
+        />
+        <Bar dataKey="expense" barSize={20} fill='#413ea0' />
+
+      </ComposedChart>
+    </ResponsiveContainer>
+
+  </div>
+
+  <br/>
+
+</div>
+
     </>
   )
 }
