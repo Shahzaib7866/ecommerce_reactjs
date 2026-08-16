@@ -66,7 +66,7 @@ const page = () => {
    {
       name: 'APR',
       revenue: 890,
-      expense: 1200
+      expense: 1900
     },
    {
       name: 'MAY',
