@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { HiMenuAlt2 } from "react-icons/hi";
 import { Button } from '@mui/material';
 import './header.css'
@@ -9,10 +9,36 @@ import { MdLightMode, MdDarkMode } from "react-icons/md"; // MdDarkMode import k
 import { FaRegBell } from 'react-icons/fa6';
 import { ThemeContext } from '../../context/ThemeContext'; // Apne folder path ke mutabiq adjust karein
 import { AiOutlineMenu } from 'react-icons/ai';
+import { getImageUrl } from '@/constants/cloudinary'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+
 
 const Header = () => {
 
   const { theme, toggleTheme, isToggleSidebar, setisToggleSidebar } = useContext(ThemeContext);
+  // const { account, setAccount } = useState("");
+
+
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClickMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
 
   const toggleNav = () =>{
     setisToggleSidebar(!isToggleSidebar);
@@ -31,7 +57,6 @@ const Header = () => {
         </Button>
 
         <SearchBox placeholder="Search..." width="300px" />
-
      
       </div> 
 
@@ -51,16 +76,96 @@ const Header = () => {
           )}
         </Button>
 
-
 <div className="header-content">
-  <Button className="menu-button">
-    R
+  <Button className="menu-button" onClick={handleClickMenu}>
+      <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
+  
     </Button>
-</div>
 
+    <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
+        slotProps={{
+          paper: {
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              '&::before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0,
+              },
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+
+        <MenuItem>
+        <div className='dropdown-menulist'>
+            <Button className="menu-button" onClick={handleClickMenu}>
+      <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
+  
+    </Button>
+
+    <div className='account-info'>
+      <h3>Shahzaib Ishaq</h3>
+      <p>admin@gmail.com</p>
+    </div>
+
+        </div>
+        </MenuItem>
+
+        <Divider />
+
+        <MenuItem onClick={handleCloseMenu}>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Add another account
+        </MenuItem>
+        <MenuItem onClick={handleCloseMenu}>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem onClick={handleCloseMenu}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+
+
+
+</div>
       </div>
     </header>
   )
 }
 
 export default Header
+
+
+

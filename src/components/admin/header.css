@@ -44,3 +44,37 @@ header.shrink {
 .menu-button:hover {
     background-color: var(--border-color) !important;
 }
+
+.product-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.dropdown-menulist {
+
+    display: flex;
+    align-items: center;
+    gap: 2;
+
+}
+.account-info {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
