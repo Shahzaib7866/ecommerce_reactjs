@@ -1,6 +1,5 @@
 import express from "express";
 import { protect, admin } from "../middlewares/authMiddleware.js";
-import multer from "multer";
 import upload from "../middlewares/multer.js";
 
 import {

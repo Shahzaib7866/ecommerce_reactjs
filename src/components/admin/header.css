@@ -53,19 +53,38 @@ header.shrink {
 }
 
 .dropdown-menulist {
-
     display: flex;
     align-items: center;
-    gap: 2;
-
+    gap: 8px;
+    /* Fixed unit */
 }
-.account-info {
 
+.account-info {
     display: flex;
     flex-direction: column;
-
 }
 
+/* Light mode text defaults */
+.account-info h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.account-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+/* Dark mode overrides (Agar aap class-based dark mode use kar rahe hain jaise .dark) */
+.dark .account-info h3 {
+    color: #f3f4f6;
+}
+
+.dark .account-info p {
+    color: #9ca3af;
+}
 
 
 

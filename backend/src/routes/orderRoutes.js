@@ -1,30 +1,23 @@
 import express from "express";
 import { protect, admin } from "../middlewares/authMiddleware.js";
-import multer from "multer";
-import upload from "../middlewares/multer.js";
+// import upload from "../middlewares/multer.js";
 
 import {
   createOrder,
-  getOrders,
+  getAllorders,
   getOrderById,
   updateOrderStatus,
-  deleteProduct,
-} from "../controllers/productController.js";
+  deleteOrder,
+} from "../controllers/orderController.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(getAllProducts)
-  .post(upload.single("image"), createProduct);
+router.route("/orders").post(protect, createOrder).get(protect, getAllorders);
 
-router
-  .route("/:id")
-  .get(getProductById)
-  .put(protect, admin, upload.single("image"), updateProduct)
-  .delete(protect, admin, deleteProduct);
+router.route("/getorder:id").get(protect, getOrderById);
+
+router.route("/updateorder:id/status").put(protect, admin, updateOrderStatus);
+
+router.route("/:id/status").put(protect, admin, deleteOrder);
 
 export default router;
-
-
-

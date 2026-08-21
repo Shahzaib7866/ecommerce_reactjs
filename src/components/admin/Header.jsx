@@ -21,7 +21,7 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import { FaRegUser } from "react-icons/fa";
 
 const Header = () => {
 
@@ -82,7 +82,7 @@ const Header = () => {
   
     </Button>
 
-    <Menu
+  <Menu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -95,11 +95,17 @@ const Header = () => {
               overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
               mt: 1.5,
+              // Dark & Light mode background & text automatically handled by MUI theme
+              backgroundColor: 'background.paper',
+              color: 'text.primary',
               '& .MuiAvatar-root': {
                 width: 32,
                 height: 32,
                 ml: -0.5,
                 mr: 1,
+              },
+              '& .MuiListItemIcon-root': {
+                color: 'text.secondary', // Icons color fix for dark mode
               },
               '&::before': {
                 content: '""',
@@ -109,7 +115,7 @@ const Header = () => {
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: 'background.paper',
+                bgcolor: 'background.paper', // Arrow color matches paper background
                 transform: 'translateY(-50%) rotate(45deg)',
                 zIndex: 0,
               },
@@ -121,27 +127,25 @@ const Header = () => {
       >
 
         <MenuItem>
-        <div className='dropdown-menulist'>
+          <div className='dropdown-menulist'>
             <Button className="menu-button" onClick={handleClickMenu}>
-      <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
-  
-    </Button>
+              <img src={getImageUrl("/star_icon.png")} alt="star" className='product-img' />
+            </Button>
 
-    <div className='account-info'>
-      <h3>Shahzaib Ishaq</h3>
-      <p>admin@gmail.com</p>
-    </div>
-
-        </div>
+            <div className='account-info'>
+              <h3>Shahzaib Ishaq</h3>
+              <p>admin@gmail.com</p>
+            </div>
+          </div>
         </MenuItem>
 
         <Divider />
 
         <MenuItem onClick={handleCloseMenu}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <FaRegUser fontSize={20} />
           </ListItemIcon>
-          Add another account
+          My Profile
         </MenuItem>
         <MenuItem onClick={handleCloseMenu}>
           <ListItemIcon>
@@ -155,9 +159,7 @@ const Header = () => {
           </ListItemIcon>
           Logout
         </MenuItem>
-      </Menu>
-
-
+  </Menu>
 
 </div>
       </div>

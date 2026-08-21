@@ -1,7 +1,6 @@
 import { Productm } from "../models/productModels.js";
 import { cloudinary, uploadtoCloudinary } from "../config/cloudinary.js";
 
-
 const createProduct = async (req, res) => {
   console.log("REQ.FILE (Multer File):", req.file);
 
@@ -71,7 +70,7 @@ const updateProduct = async (req, res) => {
     // Isse partial update sahi kaam karega (missing fields undefined ban ke DB overwrite nahi karengi)
     const updateData = {};
 
-    if (title !== undefined) updateData.name = name;
+    if (title !== undefined) updateData.title = title;
     if (description !== undefined) updateData.description = description;
     if (price !== undefined) updateData.price = price;
     if (stock !== undefined) updateData.stock = stock;
@@ -81,7 +80,7 @@ const updateProduct = async (req, res) => {
     // warna purani image untouched rahegi
     if (req.file) {
       const result = await cloudinary.uploader.upload(req.file.path);
-      updateData.imageUrl = result.secure_url;
+      updateData.productImageURL = result.secure_url;
     }
 
     // runValidators: true — schema validation force karta hai update ke time bhi
