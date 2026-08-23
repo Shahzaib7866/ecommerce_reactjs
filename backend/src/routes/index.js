@@ -5,9 +5,9 @@ import orderRoutes from './orderRoutes.js';
 
 const router = express.Router();
 
-router.use('/auth', authRoutes);
-router.use('/products', productRoutes);
-router.use('/orders', orderRoutes);
+router.use('/api/auth', authRoutes);
+router.use('/api/products', productRoutes);
+router.use('/api/orders', orderRoutes);
 // router.use('/payment', paymentRoutes);
 // router.use('/analytics', analyticsRoutes);
 

@@ -1,30 +1,42 @@
+
 import { Orderm } from "../models/Ordermodels.js";
-import { cloudinary, uploadtoCloudinary } from "../config/cloudinary.js";
+import { Productm } from "../models/Productmodels.js"; // price nikalne k liye
 
 const createOrder = async (req, res) => {
-  console.log("REQ.FILE (Multer File):", req.file);
-
   try {
-    const { title, description, price, stock, category } = req.body;
+    const { orderItems, address } = req.body;
+    const customer = req.user._id; // auth middleware se aana chahiye, body se nahi
 
-    const orderImage = req.file; //if using multer to handle file uploads
+    if (!orderItems || orderItems.length === 0) {
+      return res.status(400).json({ message: "Order items required" });
+    }
 
-    let orderImageURL;
+    // Har item ka current price DB se fetch karo, client ka bheja hua price trust mat karo
+    let orderPrice = 0;
+    const itemsWithPrice = [];
 
-    if (orderImage) {
-      // Upload image to Cloudinary
-      const cloudinaryResponse = await uploadtoCloudinary(orderImage.path);
-      console.log("Cloudinary upload result:", cloudinaryResponse);
-      orderImageURL = cloudinaryResponse.secure_url;
+    for (const item of orderItems) {
+      const product = await Productm.findById(item.productId);
+      if (!product) {
+        return res
+          .status(404)
+          .json({ message: `Product ${item.productId} not found` });
+      }
+      const itemTotal = product.price * item.quantity;
+      orderPrice += itemTotal;
+
+      itemsWithPrice.push({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: product.price,
+      });
     }
 
     const neworder = await Orderm.create({
-      title,
-      description,
-      price,
-      stock,
-      category,
-      orderImageURL,
+      customer,
+      orderItems: itemsWithPrice,
+      orderPrice,
+      address,
     });
 
     res.status(201).json(neworder);
@@ -32,13 +44,17 @@ const createOrder = async (req, res) => {
     console.error("Error creating order:", error);
     res
       .status(500)
-      .json({ error: error.message, message: "new orders not added" });
+      .json({ error: error.message, message: "new order not added" });
   }
 };
 
 const getAllorders = async (req, res) => {
   try {
-    const orders = await Orderm.find().sort({ createdAt: -1 });
+    const orders = await Orderm.find()
+      .populate("customer", "name email")
+      .populate("orderItems.productId", "title price")
+      .sort({ createdAt: -1 });
+
     res.status(200).json(orders);
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -48,10 +64,12 @@ const getAllorders = async (req, res) => {
 
 const getOrderById = async (req, res) => {
   try {
-    const order = await Orderm.findById(req.params.id);
+    const order = await Orderm.findById(req.params.id)
+      .populate("customer", "name email")
+      .populate("orderItems.productId", "title price");
 
     if (!order) {
-      return res.status(404).json({ message: "order not found" });
+      return res.status(404).json({ message: "Order not found" });
     }
 
     res.status(200).json(order);
@@ -61,38 +79,31 @@ const getOrderById = async (req, res) => {
   }
 };
 
+// Sirf status update karne k liye — admin panel se use hoga
 const updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, price, stock, category } = req.body;
+    const { status } = req.body;
 
-    // Sirf wahi fields updateData me daalo jo actually bheji gayi hain
-    // Isse partial update sahi kaam karega (missing fields undefined ban ke DB overwrite nahi karengi)
-    const updateData = {};
-
-    if (title !== undefined) updateData.name = name;
-    if (description !== undefined) updateData.description = description;
-    if (price !== undefined) updateData.price = price;
-    if (stock !== undefined) updateData.stock = stock;
-    if (category !== undefined) updateData.category = category;
-
-    // Agar new image upload hui hai to hi cloudinary pe upload karo
-    // warna purani image untouched rahegi
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      updateData.imageUrl = result.secure_url;
+    const allowedStatuses = [
+      "pending",
+      "processing",
+      "shipped",
+      "delivered",
+      "cancelled",
+    ];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).json({ message: "Invalid status value" });
     }
 
-    // runValidators: true — schema validation force karta hai update ke time bhi
-    // (default me findByIdAndUpdate validators skip kar deta hai)
-    // new: true — updated document return karta hai, old wala nahi
-    const updatedorder = await Orderm.findByIdAndUpdate(id, updateData, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedorder = await Orderm.findByIdAndUpdate(
+      id,
+      { status },
+      { new: true, runValidators: true }
+    );
 
     if (!updatedorder) {
-      return res.status(404).json({ message: "order not found" });
+      return res.status(404).json({ message: "Order not found" });
     }
 
     res.status(200).json(updatedorder);
@@ -107,10 +118,10 @@ const deleteOrder = async (req, res) => {
     const deletedorder = await Orderm.findByIdAndDelete(req.params.id);
 
     if (!deletedorder) {
-      return res.status(404).json({ message: "order not found" });
+      return res.status(404).json({ message: "Order not found" });
     }
 
-    res.status(200).json({ message: "order deleted successfully" });
+    res.status(200).json({ message: "Order deleted successfully" });
   } catch (error) {
     console.error("Error deleting order:", error);
     res
