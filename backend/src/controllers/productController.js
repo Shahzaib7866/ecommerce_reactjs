@@ -1,4 +1,4 @@
-import { Productm } from "../models/productModels.js";
+import Productm from "../models/productModels.js";
 import { cloudinary, uploadtoCloudinary } from "../config/cloudinary.js";
 
 const createProduct = async (req, res) => {

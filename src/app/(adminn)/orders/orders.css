@@ -1,0 +1,50 @@
+.orders {
+    width: auto;
+    min-height: 220px;
+    margin: 0.5rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left_col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 60%;
+}
+
+.orders_header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.orders_header h3 {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.left_col h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.left_col p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.right_col {
+    display: flex;
+    align-items: flex-end;
+    /* Thora neechay align karne ke liye */
+    margin-top: 80px;
+    /* Mazeed neechay shift karne ke liye */
+    margin-right: 15px;
+    /* Mazeed right mein shift karne ke liye */
+}
