@@ -5,6 +5,7 @@ import { Button } from '@mui/material';
 import { LuRefreshCcw, LuCircleDollarSign, LuRotateCcw, LuClock, LuUsers } from "react-icons/lu";
 import { CiWavePulse1 } from "react-icons/ci";
 import './orders.css';
+import { GoSortDesc } from "react-icons/go";
 
 const Orders = () => {
   // Suggested titles and structured data for the 4 boxes
@@ -70,6 +71,26 @@ const Orders = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className='orders-details'>
+
+    <Button variant="text">
+All          
+</Button>
+    <Button variant="text">
+Unpaid          
+</Button>
+    <Button variant="text">
+Unfulfilled          
+</Button>
+
+        <div className='orders-header'>
+          <input type="search" name="" id="" />
+          <GoSortDesc />
+
+        </div>
+
       </div>
     </>
   );

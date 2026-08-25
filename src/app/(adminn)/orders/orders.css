@@ -175,3 +175,90 @@
     color: #60a5fa;
     background-color: rgba(59, 130, 246, 0.15);
 }
+
+.orders-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Mobile screen par wrap hojaye ga agar space kam ho */
+    gap: 15px;
+    margin: 1.5rem;
+    padding: 10px 0;
+}
+
+/* Left side buttons group container (agar buttons ko aik wrapper mein rakhna chaho, warna direct flex item ban jayenge) */
+.orders-details .MuiButton-root {
+    text-transform: none;
+    /* Material UI button text capital hone se rokne ke liye */
+    font-weight: 500;
+    color: #4b5563;
+}
+
+/* Active or selected button style agr add krna ho */
+.orders-details .MuiButton-root:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Right side search & sort header */
+.orders-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.orders-header input[type="search"] {
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.2s;
+    background-color: transparent;
+}
+
+.orders-header input[type="search"]:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Sort Icon Styling */
+.orders-header svg {
+    font-size: 20px;
+    color: #4b5563;
+    cursor: pointer;
+}
+
+/* ===========================
+   DARK MODE SUPPORT
+   =========================== */
+.dark-mode .orders-header input[type="search"] {
+    border-color: #374151;
+    color: #f9fafb;
+}
+
+.dark-mode .orders-header input[type="search"]::placeholder {
+    color: #9ca3af;
+}
+
+.dark-mode .orders-header svg,
+.dark-mode .orders-details .MuiButton-root {
+    color: #9ca3af;
+}
+
+/* Responsive breakpoint for smaller screens */
+@media (max-width: 640px) {
+    .orders-details {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .orders-header {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .orders-header input[type="search"] {
+        flex-grow: 1;
+    }
+}
