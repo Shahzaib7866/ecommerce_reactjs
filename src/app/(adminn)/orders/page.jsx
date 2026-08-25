@@ -1,15 +1,39 @@
 "use client";
 
-import React, { useContext } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
-import { LuRefreshCcw } from "react-icons/lu";
+import { LuRefreshCcw, LuCircleDollarSign, LuRotateCcw, LuClock, LuUsers } from "react-icons/lu";
 import { CiWavePulse1 } from "react-icons/ci";
-import DashBox from '../../../components/admin/DashboardBox/DashBox';
-// import { ThemeContext } from '../../../context/ThemeContext';
 import './orders.css';
 
 const Orders = () => {
-  // const { theme } = useContext(ThemeContext);
+  // Suggested titles and structured data for the 4 boxes
+  const boxData = [
+    {
+      title: "Total Order Value",
+      value: "PKR 6,443",
+      icon: <LuCircleDollarSign />,
+      trendColor: "green"
+    },
+    {
+      title: "Return Orders",
+      value: "6",
+      icon: <LuRotateCcw />,
+      trendColor: "red"
+    },
+    {
+      title: "Pending Shipments",
+      value: "14",
+      icon: <LuClock />,
+      trendColor: "orange"
+    },
+    {
+      title: "Active Customers",
+      value: "1,280",
+      icon: <LuUsers />,
+      trendColor: "blue"
+    }
+  ];
 
   return (
     <>
@@ -33,7 +57,20 @@ const Orders = () => {
         </div>
       </div>
 
-      <DashBox />
+      {/* Dynamic Grid Container for Multiple Boxes */}
+      <div className="boxes_container">
+        {boxData.map((item, index) => (
+          <div className="box" key={index}>
+            <div>
+              <h3>{item.title}</h3>
+              <h1>{item.value}</h1>
+            </div>
+            <div className={`icon_wrapper ${item.trendColor}`}>
+              {item.icon}
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

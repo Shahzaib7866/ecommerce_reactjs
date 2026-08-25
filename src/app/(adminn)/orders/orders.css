@@ -2,7 +2,7 @@
     width: auto;
     min-height: 220px;
     margin: 0.5rem 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -42,9 +42,136 @@
 .right_col {
     display: flex;
     align-items: flex-end;
-    /* Thora neechay align karne ke liye */
     margin-top: 80px;
-    /* Mazeed neechay shift karne ke liye */
     margin-right: 15px;
-    /* Mazeed right mein shift karne ke liye */
+}
+
+/* Responsive Grid Container for Dashboard Boxes */
+.boxes_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 1.5rem;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    font-family: sans-serif;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.box div h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.box div h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Base Icon Styling */
+.box svg {
+    width: 24px;
+    height: 24px;
+}
+
+.icon_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+/* Variant color styles for icons */
+.icon_wrapper.green {
+    color: #10b981;
+    background-color: #d1fae5;
+}
+
+.icon_wrapper.red {
+    color: #ef4444;
+    background-color: #fee2e2;
+}
+
+.icon_wrapper.orange {
+    color: #f59e0b;
+    background-color: #fef3c7;
+}
+
+.icon_wrapper.blue {
+    color: #3b82f6;
+    background-color: #dbeafe;
+}
+
+
+/* ===========================
+   DARK MODE STYLING 
+   =========================== */
+/* Agar tumhari app mein body ya parent container par .dark-mode class lagti hai */
+.dark-mode .orders {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .left_col h1,
+.dark-mode .orders_header {
+    color: #f3f4f6;
+}
+
+.dark-mode .left_col p {
+    color: #9ca3af;
+}
+
+.dark-mode .box {
+    background-color: #1f2937;
+    /* Dark card background */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .box div h3 {
+    color: #9ca3af;
+}
+
+.dark-mode .box div h1 {
+    color: #f9fafb;
+}
+
+/* Dark mode adjustments for icon background circles */
+.dark-mode .icon_wrapper.green {
+    color: #34d399;
+    background-color: rgba(16, 185, 129, 0.15);
+}
+
+.dark-mode .icon_wrapper.red {
+    color: #f87171;
+    background-color: rgba(239, 68, 68, 0.15);
+}
+
+.dark-mode .icon_wrapper.orange {
+    color: #fbbf24;
+    background-color: rgba(245, 158, 11, 0.15);
+}
+
+.dark-mode .icon_wrapper.blue {
+    color: #60a5fa;
+    background-color: rgba(59, 130, 246, 0.15);
 }
