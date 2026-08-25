@@ -180,27 +180,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    /* Mobile screen par wrap hojaye ga agar space kam ho */
+    flex-wrap: wrap; /* Mobile screen par wrap hone ke liye */
     gap: 15px;
     margin: 1.5rem;
     padding: 10px 0;
 }
 
-/* Left side buttons group container (agar buttons ko aik wrapper mein rakhna chaho, warna direct flex item ban jayenge) */
-.orders-details .MuiButton-root {
+/* Left Side: Buttons container */
+.orders-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Buttons ke darmiyan thori si space */
+}
+
+/* MUI Text Buttons styling adjustments */
+.orders-filters .MuiButton-root {
     text-transform: none;
-    /* Material UI button text capital hone se rokne ke liye */
     font-weight: 500;
     color: #4b5563;
+    padding: 6px 14px;
+    border-radius: 8px;
 }
 
-/* Active or selected button style agr add krna ho */
-.orders-details .MuiButton-root:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+.orders-filters .MuiButton-root:hover {
+    background-color: rgba(16, 185, 129, 0.08);
+    color: #10b981;
 }
 
-/* Right side search & sort header */
+/* Right Side: Search and Sort container */
 .orders-header {
     display: flex;
     align-items: center;
@@ -213,44 +220,41 @@
     border-radius: 8px;
     outline: none;
     font-size: 14px;
+    background-color: #ffffff;
+    color: #111827;
     transition: border-color 0.2s;
-    background-color: transparent;
+    width: 220px;
 }
 
 .orders-header input[type="search"]:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
 }
 
-/* Sort Icon Styling */
 .orders-header svg {
-    font-size: 20px;
-    color: #4b5563;
     cursor: pointer;
+    color: #4b5563;
+    transition: color 0.2s;
 }
+
+.orders-header svg:hover {
+    color: #10b981;
+}
+
 
 /* ===========================
-   DARK MODE SUPPORT
+   RESPONSIVENESS (Mobile View)
    =========================== */
-.dark-mode .orders-header input[type="search"] {
-    border-color: #374151;
-    color: #f9fafb;
-}
-
-.dark-mode .orders-header input[type="search"]::placeholder {
-    color: #9ca3af;
-}
-
-.dark-mode .orders-header svg,
-.dark-mode .orders-details .MuiButton-root {
-    color: #9ca3af;
-}
-
-/* Responsive breakpoint for smaller screens */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .orders-details {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .orders-filters {
+        justify-content: flex-start;
+        overflow-x: auto; /* Agar buttons zyada hon toh scroll ho sakein */
+        padding-bottom: 5px;
     }
 
     .orders-header {
@@ -259,6 +263,39 @@
     }
 
     .orders-header input[type="search"] {
-        flex-grow: 1;
+        width: 100%; /* Mobile par search input poori width le */
     }
 }
+
+
+/* ===========================
+   DARK MODE STYLING 
+   =========================== */
+.dark-mode .orders-filters .MuiButton-root {
+    color: #9ca3af;
+}
+
+.dark-mode .orders-filters .MuiButton-root:hover {
+    background-color: rgba(52, 211, 153, 0.1);
+    color: #34d399;
+}
+
+.dark-mode .orders-header input[type="search"] {
+    background-color: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+}
+
+.dark-mode .orders-header input[type="search"]:focus {
+    border-color: #34d399;
+}
+
+.dark-mode .orders-header svg {
+    color: #9ca3af;
+}
+
+.dark-mode .orders-header svg:hover {
+    color: #34d399;
+}
+
+

@@ -73,25 +73,20 @@ const Orders = () => {
         ))}
       </div>
 
-      <div className='orders-details'>
+   <div className='orders-details'>
+  {/* Left Side Filter Buttons */}
+  <div className="orders-filters">
+    <Button variant="text">All</Button>
+    <Button variant="text">Unpaid</Button>
+    <Button variant="text">Unfulfilled</Button>
+  </div>
 
-    <Button variant="text">
-All          
-</Button>
-    <Button variant="text">
-Unpaid          
-</Button>
-    <Button variant="text">
-Unfulfilled          
-</Button>
-
-        <div className='orders-header'>
-          <input type="search" name="" id="" />
-          <GoSortDesc />
-
-        </div>
-
-      </div>
+  {/* Right Side Search & Sort Header */}
+  <div className='orders-header'>
+    <input type="search" placeholder="Search orders..." />
+    <GoSortDesc size={20} />
+  </div>
+</div>
     </>
   );
 };
