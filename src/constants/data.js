@@ -1,4 +1,4 @@
-import { title } from "node:process";
+// import { title } from "node:process";
 
 import GridViewTwoToneIcon from "@mui/icons-material/GridViewTwoTone";
 import CategoryTwoToneIcon from "@mui/icons-material/CategoryTwoTone";
@@ -116,5 +116,14 @@ export const sidebarMenu = [
     icon: <LogoutTwoToneIcon fontSize="medium" />,
   },
 ];
+
+// export const ordersData = [
+//   {
+//     orderId: "8768",
+//     customer: {
+      
+//     }
+//   }
+// ]
 
 export default data_product;

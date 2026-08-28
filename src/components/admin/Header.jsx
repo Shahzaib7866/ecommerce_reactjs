@@ -39,7 +39,6 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-
   const toggleNav = () =>{
     setisToggleSidebar(!isToggleSidebar);
   }
