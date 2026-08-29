@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import React, { useState, useContext } from 'react';
@@ -7,7 +9,7 @@ import { CiWavePulse1 } from "react-icons/ci";
 import './orders.css';
 import { GoSortDesc } from "react-icons/go";
 import SearchBox from '@/components/admin/SearchBox';
-import { ThemeContext } from '@/context/ThemeContext'; // Ensure this matches your project's context path
+import { ThemeContext } from '@/context/ThemeContext';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -48,32 +50,13 @@ const Orders = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows] = useState(initialRows);
+  const [filterbtn, setFilterbtn] = useState("All"); // Default 'All' selected
 
   const boxData = [
-    {
-      title: "Total Order Value",
-      value: "PKR 6,443",
-      icon: <LuCircleDollarSign />,
-      trendColor: "green"
-    },
-    {
-      title: "Return Orders",
-      value: "6",
-      icon: <LuRotateCcw />,
-      trendColor: "red"
-    },
-    {
-      title: "Pending Shipments",
-      value: "14",
-      icon: <LuClock />,
-      trendColor: "orange"
-    },
-    {
-      title: "Active Customers",
-      value: "1,280",
-      icon: <LuUsers />,
-      trendColor: "blue"
-    }
+    { title: "Total Order Value", value: "PKR 6,443", icon: <LuCircleDollarSign />, trendColor: "green" },
+    { title: "Return Orders", value: "6", icon: <LuRotateCcw />, trendColor: "red" },
+    { title: "Pending Shipments", value: "14", icon: <LuClock />, trendColor: "orange" },
+    { title: "Active Customers", value: "1,280", icon: <LuUsers />, trendColor: "blue" }
   ];
 
   const handleChangePage = (event, newPage) => {
@@ -84,6 +67,12 @@ const Orders = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  // Step 1: Filtering Logic implementation
+  const filteredRows = rows.filter((row) => {
+    if (filterbtn === 'All') return true;
+    return row.status.toLowerCase() === filterbtn.toLowerCase();
+  });
 
   return (
     <div className={`orders-page-wrapper ${theme === 'dark' ? 'dark-mode' : ''}`}>
@@ -123,10 +112,32 @@ const Orders = () => {
 
       <div className='orders-box'>
         <div className='orders-details'>
+          {/* Step 2: Buttons with onClick handlers updating the state */}
           <div className="orders-filters">
-            <Button variant="text">All</Button>
-            <Button variant="text">Unpaid</Button>
-            <Button variant="text">Unfulfilled</Button>
+
+            <Button 
+              variant="text" 
+              onClick={() => setFilterbtn('All')}
+              className={filterbtn === 'All' ? 'active-filter' : ''}
+            >
+              All
+            </Button>
+
+            <Button 
+              variant="text" 
+              onClick={() => setFilterbtn('Unpaid')}
+              className={filterbtn === 'Unpaid' ? 'active-filter' : ''}
+            >
+              Unpaid
+            </Button>
+
+            <Button 
+              variant="text" 
+              onClick={() => setFilterbtn('Unfulfilled')}
+              className={filterbtn === 'Unfulfilled' ? 'active-filter' : ''}
+            >
+              Unfulfilled
+            </Button>
           </div>
 
           <div className='orders-header'>
@@ -152,7 +163,8 @@ const Orders = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
+                {/* Step 3: Map over filteredRows instead of original rows */}
+                {filteredRows
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row) => (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.orderId}>
@@ -169,10 +181,12 @@ const Orders = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          
+          {/* Step 4: Update count based on filteredRows length */}
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={filteredRows.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -180,20 +194,10 @@ const Orders = () => {
           />
 
         </Paper>
-
       </div>
     </div>
   );
 };
 
 export default Orders;
-
-
-
-
-
-
-
-
-
 

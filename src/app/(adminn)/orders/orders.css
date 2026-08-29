@@ -50,8 +50,9 @@
 .right_col {
     display: flex;
     align-items: center;
-    margin-top: 0;
-    margin-right: 0;
+    justify-content: flex-end;
+    margin-top: 64px;
+    
 }
 
 /* ===========================
@@ -159,7 +160,6 @@
     padding-bottom: 15px;
     border-bottom: 1px solid #f3f4f6;
 }
-
 .orders-filters {
     display: flex;
     align-items: center;
@@ -178,6 +178,17 @@
 .orders-filters .MuiButton-root:hover {
     background-color: rgba(16, 185, 129, 0.08);
     color: #10b981;
+}
+
+/* Active Button Styling */
+.orders-filters .MuiButton-root.active-filter {
+    background-color: #10b981 !important;
+    color: #ffffff !important;
+}
+
+.orders-filters .MuiButton-root.active-filter:hover {
+    background-color: #059669 !important;
+    color: #ffffff !important;
 }
 
 .orders-header {
@@ -358,7 +369,6 @@
         justify-content: space-between;
     }
 }
-
 
 
 
