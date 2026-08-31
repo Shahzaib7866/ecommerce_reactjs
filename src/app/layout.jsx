@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google'
 import { cookies } from 'next/headers'
 import Providers from '../components/Providers'
 import LayoutWrapper from '../components/LayoutWrapper'
+import { Toaster } from 'react-hot-toast'   
 
 const poppins = Poppins({ 
   subsets: ['latin'],
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" className={`app ${theme}`}>
       <body className={poppins.className} suppressHydrationWarning={true}>
+        <Toaster position="top-center" /> 
         <Providers theme={theme}>
           <LayoutWrapper>
             <div>

@@ -1,6 +1,5 @@
-
 import mongoose from "mongoose";
- 
+
 const orderItemSchema = new mongoose.Schema(
   {
     orderId: {
@@ -23,8 +22,12 @@ const orderItemSchema = new mongoose.Schema(
       type: Number, // Jis price par product us waqt bika (historical price safe rakhne ke liye)
       required: true,
     },
+    size: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );
 
-export const OrderItemsm = mongoose.model("Orderm", orderItemSchema);
+export const OrderItemsm = mongoose.model("OrderItemsm", orderItemSchema);

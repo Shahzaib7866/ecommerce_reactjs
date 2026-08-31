@@ -12,6 +12,7 @@ const publicRoutes = [
   '/women',
   '/kids',
   '/cart',
+  '/checkoutform'
   // agar koi aur public page ho toh yahan add kardein
 ]
 
@@ -20,7 +21,7 @@ export default function LayoutWrapper({ children }) {
   
   // Check karein ke kya current route explicitly public routes ki list mein hai 
   // ya phir kisi valid public sub-route se start ho raha hai (jaise /shop/product-id)
-  const isPublicRoute = publicRoutes.includes(pathname) || pathname.startsWith('/shop/')
+  const isPublicRoute = publicRoutes.includes(pathname) || pathname.startsWith('/shop/') || pathname.startsWith('/product/')
 
   return (
     <>

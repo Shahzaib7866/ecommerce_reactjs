@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Orderm } from "../models/Ordermodels.js";
-import { OrderItemsm } from "../models/OrderItemsmodels.js"; // Aapka naya order item model
+import { Orderm } from "../models/orderModels.js";
+import { OrderItemsm } from "../models/orderItemsModel.js";
 import Productm from "../models/Productmodels.js";
 
 const createOrder = async (req, res) => {
@@ -8,8 +8,11 @@ const createOrder = async (req, res) => {
   session.startTransaction();
 
   try {
-    const { orderItems, address } = req.body;
-    const customer = req.user._id; // auth middleware se aana chahiye
+    // CHANGE: email, phone, paymentMethod bhi destructure karo
+    const { orderItems, address, email, phone, paymentMethod } = req.body;
+
+    // CHANGE: req.user optional — guest ke liye undefined hoga
+    const customer = req.user?._id || null;
 
     if (!orderItems || orderItems.length === 0) {
       await session.abortTransaction();
@@ -17,7 +20,15 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ message: "Order items required" });
     }
 
-    // Har item ka current price DB se fetch karo
+    // NAYA: guest ke liye email mandatory check
+    if (!customer && !email) {
+      await session.abortTransaction();
+      session.endSession();
+      return res
+        .status(400)
+        .json({ message: "Email required for guest checkout" });
+    }
+
     let orderPrice = 0;
     const itemsToProcess = [];
 
@@ -38,34 +49,35 @@ const createOrder = async (req, res) => {
         productId: item.productId,
         quantity: item.quantity,
         price: product.price,
+        size: item.size, // NAYA — tumhare cart key mein size hai, isliye order mein bhi chahiye
       });
     }
 
-    // Step 1: Pehle Main Order create karo
+    // CHANGE: guestEmail/guestPhone/paymentMethod add kiye
     const newOrder = new Orderm({
       customer,
+      guestEmail: customer ? undefined : email,
+      guestPhone: phone,
       orderPrice,
       address,
+      paymentMethod,
     });
 
     const savedOrder = await newOrder.save({ session });
 
-    // Step 2: OrderItems documents prepare karo aur orderId link karo
     const orderItemsDocuments = itemsToProcess.map((item) => ({
-      orderId: savedOrder._id, // Foreign key link
+      orderId: savedOrder._id,
       productId: item.productId,
       quantity: item.quantity,
       price: item.price,
+      size: item.size, 
     }));
 
-    // Step 3: Saare items OrderItems table mein insert kar do
     await OrderItemsm.insertMany(orderItemsDocuments, { session });
 
-    // Sab kuch theek hai toh transaction commit kar do
     await session.commitTransaction();
     session.endSession();
 
-    // Response mein order aur uske items wapis bhejo
     res.status(201).json({
       success: true,
       message: "Order placed successfully",
@@ -75,7 +87,7 @@ const createOrder = async (req, res) => {
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.err("Error creating order:", error);
+    console.error("Error creating order:", error); // FIX: console.err → console.error (typo, valid method nahi tha)
     res
       .status(500)
       .json({ error: error.message, message: "New order not added" });
@@ -205,10 +217,34 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const getOrderByIdForGuest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { email } = req.query;
+
+    const order = await Orderm.findById(id);
+    if (!order) return res.status(404).json({ message: "Order not found" });
+
+    if (order.guestEmail && order.guestEmail !== email) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    const items = await OrderItemsm.find({ orderId: order._id }).populate(
+      "productId",
+      "title price image"
+    );
+
+    res.status(200).json({ ...order.toObject(), orderItems: items });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export {
   createOrder,
   getAllorders,
   getOrderById,
   updateOrderStatus,
   deleteOrder,
+  getOrderByIdForGuest,
 };
