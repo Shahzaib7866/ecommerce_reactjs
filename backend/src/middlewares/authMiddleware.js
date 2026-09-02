@@ -3,52 +3,71 @@ import Userm from "../models/userModels.js";
 
 // hum specific token lety hain admin ka fr request k header mein agr wohi bearer token ho tu admin waly sary routes ki access mil jati hai us specific user ko
 
-
-
 // "protect" middleware — ye check karega ke request bhejne wala login hai ya nahi
-const protect = async (req, res, next) => { 
+const protect = async (req, res, next) => {
+  let token;
 
-    let token;
+  // check kar rahe hain ke request ke header mein "authorization" field hai
+  // aur wo "Bearer" se start ho rahi hai (standard JWT format: "Bearer <token>")
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+      // "Bearer xxxxx" ko split karke sirf "xxxxx" (actual token) nikal rahe hain
+      token = req.headers.authorization.split(" ")[1];
 
-        // check kar rahe hain ke request ke header mein "authorization" field hai
-    // aur wo "Bearer" se start ho rahi hai (standard JWT format: "Bearer <token>")
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-        try {
-            
-     // "Bearer xxxxx" ko split karke sirf "xxxxx" (actual token) nikal rahe hain
-            token = req.headers.authorization.split(" ")[1];
+      // token ko verify kar rahe hain JWT_SECRET (.env wali secret key) ke sath
+      // agar token valid/authentic hai to decoded data (jaise user id) return hoga
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-             // token ko verify kar rahe hain JWT_SECRET (.env wali secret key) ke sath
-            // agar token valid/authentic hai to decoded data (jaise user id) return hoga
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // decoded token se user ki id le kar database se us user ko dhoond rahe hain
+      req.user = await Userm.findById(decoded.id).select("-password");
 
-        // decoded token se user ki id le kar database se us user ko dhoond rahe hain
-            req.user = await Userm.findById(decoded.id).select("-password");
-
-// sab kuch sahi hai to agle middleware/route handler ko control pass kar do
-            next();
-
-        } catch (error) {
-            console.error("Error verifying token:", error);
-            res.status(401).json({ message: "Unauthorized" });
-        }
-    } else {
-        res.status(401).json({ message: "No token provided" });
+      // sab kuch sahi hai to agle middleware/route handler ko control pass kar do
+      next();
+    } catch (error) {
+      console.error("Error verifying token:", error);
+      res.status(401).json({ message: "Unauthorized" });
     }
+  } else {
+    res.status(401).json({ message: "No token provided" });
+  }
+};
+
+// for guest users,ye check karega ke request bhejne wala login hai ya nahi, lekin agar nahi hai to bhi request ko allow karega
+const optionalProtect = async (req, res, next) => {
+  let token;
+
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    try {
+      token = req.headers.authorization.split(" ")[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = await Userm.findById(decoded.id).select("-password");
+    } catch (error) {
+      // FARQ yahan hai: token invalid/expired ho to bhi reject nahi karte,
+      // guest ki tarah treat karte hain — request ko chalne dete hain
+      console.error("Invalid token, proceeding as guest:", error.message);
+      req.user = null;
+    }
+  } else {
+    // Token diya hi nahi — seedha guest
+    req.user = null;
+  }
+
+  next(); // HAMESHA aagay jaao — protect mein error case mein next() nahi hota, yahan hamesha hota hai
 };
 
 // "admin" middleware, check karega ke logged-in user "admin" hai ya nahi
 const admin = (req, res, next) => {
-
-    // pehle protect middleware ne req.user set kiya hota hai
-    // us mein check kar rahe hain ke user exist karta hai aur uska isAdmin flag true hai
-    if (req.user && req.user.verified) {
-                // agar admin hai to age badhne do
-        next();
-    } else {
-        res.status(403).json({ message: "Forbidden" });
-    }
+  // pehle protect middleware ne req.user set kiya hota hai
+  // us mein check kar rahe hain ke user exist karta hai aur uska isAdmin flag true hai
+  if (req.user && req.user.verified) {
+    // agar admin hai to age badhne do
+    next();
+  } else {
+    res.status(403).json({ message: "Forbidden" });
+  }
 };
 
-export { protect, admin };  
-
+export { protect, optionalProtect, admin };

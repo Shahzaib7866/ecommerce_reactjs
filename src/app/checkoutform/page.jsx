@@ -11,64 +11,73 @@ const CheckoutForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
 
-    // cartItems: { "itemId_size": qty } → orderItems array
-    // NOTE: "size" tabhi backend save karega jab OrderItemsm schema mein size field ho (upar dekho)
-    const orderItems = Object.entries(cartItems)
-      .filter(([_, qty]) => qty > 0)
-      .map(([key, quantity]) => {
-        const [itemId, size] = key.split("_");
-        return { productId: itemId, size, quantity };
-      });
+  const orderItems = Object.entries(cartItems)
+    .filter(([_, qty]) => qty > 0)
+    .map(([key, quantity]) => {
+      const [itemId, size] = key.split("_");
+      return { productId: itemId, size, quantity };
+    });
 
-    if (orderItems.length === 0) {
-      toast.error("Your cart is empty");
-      return;
-    }
+  if (orderItems.length === 0) {
+    toast.error("Your cart is empty");
+    return;
+  }
 
-    // CHANGE: Orderm schema ke exact structure ke hisaab se — guestInfo, shippingAddress, totalAmount
-    const orderPayload = {
-      guestInfo: {
-        name: `${formData.get("firstName")} ${formData.get("lastName")}`,
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-      },
-      shippingAddress: {
-        firstName: formData.get("firstName"),
-        lastName: formData.get("lastName"),
-        address: formData.get("address"),
-        city: formData.get("city"),
-        state: formData.get("state"),
-        postalCode: formData.get("postalCode"),
-      },
-      totalAmount: getTotalCartAmount(),
-      paymentMethod,
-      orderItems, // controller isko alag se OrderItemsm mein insert karega
-    };
+  // NAYA: token check — jahan bhi login ke baad token save karte ho wahi key use karo
+  const token = localStorage.getItem("authToken");
 
-    setLoading(true);
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderPayload),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Order failed");
-
-      toast.success("Order Placed Successfully!");
-      clearCart();
-      router.push(`/order-confirmation/${data.order._id}?email=${encodeURIComponent(orderPayload.guestInfo.email)}`);
-    } catch (err) {
-      toast.error(err.message || "Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+  const orderPayload = {
+    // CHANGE: agar token hai (logged in), guestInfo bhejne ki zaroorat nahi
+    guestInfo: token ? undefined : {
+      name: `${formData.get("firstName")} ${formData.get("lastName")}`,
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+    },
+    shippingAddress: {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      address: formData.get("address"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      postalCode: formData.get("postalCode"),
+    },
+    totalAmount: getTotalCartAmount(),
+    paymentMethod,
+    orderItems,
   };
+
+  setLoading(true);
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token && { Authorization: `Bearer ${token}` }), // NAYA
+      },
+      body: JSON.stringify(orderPayload),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Order failed");
+
+    toast.success("Order Placed Successfully!");
+    clearCart();
+
+    // CHANGE: registered user ho to email query ki zaroorat nahi (myorder route token se auth hoga)
+    const redirectUrl = token
+      ? `/order-confirmation/${data.order._id}`
+      : `/order-confirmation/${data.order._id}?email=${encodeURIComponent(orderPayload.guestInfo.email)}`;
+    router.push(redirectUrl);
+  } catch (err) {
+    toast.error(err.message || "Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const subtotal = getTotalCartAmount()
 

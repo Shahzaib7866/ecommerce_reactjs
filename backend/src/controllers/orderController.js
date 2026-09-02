@@ -8,11 +8,13 @@ const createOrder = async (req, res) => {
   session.startTransaction();
 
   try {
-    // CHANGE: email, phone, paymentMethod bhi destructure karo
-    const { orderItems, address, email, phone, paymentMethod } = req.body;
+    // CHANGE: schema field names ke hisaab se destructure — address/email/phone nahi,
+    // shippingAddress/guestInfo hain
+    const { orderItems, shippingAddress, guestInfo, paymentMethod } = req.body;
 
-    // CHANGE: req.user optional — guest ke liye undefined hoga
-    const customer = req.user?._id || null;
+    // CHANGE: optionalProtect ne req.user set kiya ho to registered, warna guest
+    const isRegisteredUser = !!req.user;
+    const customer = isRegisteredUser ? req.user._id : null;
 
     if (!orderItems || orderItems.length === 0) {
       await session.abortTransaction();
@@ -20,8 +22,8 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ message: "Order items required" });
     }
 
-    // NAYA: guest ke liye email mandatory check
-    if (!customer && !email) {
+    // CHANGE: guestInfo.email check (guestEmail nahi — schema mein guestInfo.email hai)
+    if (!isRegisteredUser && !guestInfo?.email) {
       await session.abortTransaction();
       session.endSession();
       return res
@@ -29,10 +31,27 @@ const createOrder = async (req, res) => {
         .json({ message: "Email required for guest checkout" });
     }
 
-    let orderPrice = 0;
+    // NAYA: basic sanity checks (security)
+    if (!shippingAddress || !paymentMethod) {
+      await session.abortTransaction();
+      session.endSession();
+      return res
+        .status(400)
+        .json({ message: "Shipping address and payment method required" });
+    }
+
+    // CHANGE: orderPrice → totalAmount (schema field name)
+    let totalAmount = 0;
     const itemsToProcess = [];
 
     for (const item of orderItems) {
+      // NAYA: quantity sanity check — abuse rokne ke liye
+      if (!item.quantity || item.quantity < 1 || item.quantity > 20) {
+        await session.abortTransaction();
+        session.endSession();
+        return res.status(400).json({ message: "Invalid quantity" });
+      }
+
       const product = await Productm.findById(item.productId);
       if (!product) {
         await session.abortTransaction();
@@ -43,23 +62,22 @@ const createOrder = async (req, res) => {
       }
 
       const itemTotal = product.price * item.quantity;
-      orderPrice += itemTotal;
+      totalAmount += itemTotal;
 
       itemsToProcess.push({
         productId: item.productId,
         quantity: item.quantity,
         price: product.price,
-        size: item.size, // NAYA — tumhare cart key mein size hai, isliye order mein bhi chahiye
+        size: item.size,
       });
     }
 
-    // CHANGE: guestEmail/guestPhone/paymentMethod add kiye
+    // CHANGE: schema ke exact field names — customer, guestInfo, shippingAddress, totalAmount
     const newOrder = new Orderm({
       customer,
-      guestEmail: customer ? undefined : email,
-      guestPhone: phone,
-      orderPrice,
-      address,
+      guestInfo: isRegisteredUser ? undefined : guestInfo, // registered ho to guestInfo save nahi karte
+      shippingAddress,
+      totalAmount,
       paymentMethod,
     });
 
@@ -70,7 +88,7 @@ const createOrder = async (req, res) => {
       productId: item.productId,
       quantity: item.quantity,
       price: item.price,
-      size: item.size, 
+      size: item.size,
     }));
 
     await OrderItemsm.insertMany(orderItemsDocuments, { session });
@@ -87,7 +105,7 @@ const createOrder = async (req, res) => {
   } catch (error) {
     await session.abortTransaction();
     session.endSession();
-    console.error("Error creating order:", error); // FIX: console.err → console.error (typo, valid method nahi tha)
+    console.error("Error creating order:", error);
     res
       .status(500)
       .json({ error: error.message, message: "New order not added" });
@@ -225,7 +243,13 @@ const getOrderByIdForGuest = async (req, res) => {
     const order = await Orderm.findById(id);
     if (!order) return res.status(404).json({ message: "Order not found" });
 
-    if (order.guestEmail && order.guestEmail !== email) {
+    // NAYA: agar ye registered user ka order hai, guest route se access allowed nahi
+    if (order.customer) {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    // CHANGE: guestEmail → guestInfo.email
+    if (order.guestInfo?.email !== email) {
       return res.status(403).json({ message: "Unauthorized" });
     }
 
@@ -240,6 +264,18 @@ const getOrderByIdForGuest = async (req, res) => {
   }
 };
 
+// registered user apne saare orders dekhega
+const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Orderm.find({ customer: req.user._id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export {
   createOrder,
   getAllorders,
@@ -247,4 +283,5 @@ export {
   updateOrderStatus,
   deleteOrder,
   getOrderByIdForGuest,
+  getMyOrders,
 };
