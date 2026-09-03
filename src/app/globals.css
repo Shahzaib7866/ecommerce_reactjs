@@ -1,72 +1,6 @@
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.app{
-    scroll-behavior: smooth;
-    color-scheme: light;
-}
-
-.light {
-    --background: #ffffff;
-    --foreground: #171717;
-}
-
-.dark {
-    --background: #171717;
-    --foreground: #c8c8c8;
-}
-
-.light ::-webkit-scrollbar {
-    width: 5px !important;
-    height: 5px !important;
-}
-
-.light ::-webkit-scrollbar-thumb {
-    background: #ccc;
-}
-
-.light ::-webkit-scrollbar-track {
-    background: #fff;
-}
-
-.dark ::-webkit-scrollbar {
-    width: 5px !important;
-    height: 5px !important;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-    background: #ccc;
-}
-
-.dark ::-webkit-scrollbar-track {
-    background: #212121;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-family: 'Poppins', sans-serif;
-
-    /* 100vw ki jaga 100% karein taake extra spacing ya gap na aaye */
-    /* width: 100%; */
-    /* min-height: 100vh;
-    overflow-x: hidden;
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}  */
-
-
-
 * {
     margin: 0;
-    padding: 0;
+    /* padding: 0; */
     box-sizing: border-box;
 }
 
@@ -74,38 +8,61 @@ code {
     scroll-behavior: smooth;
 }
 
-/* Light Theme Variables */
+/* Editorial Luxury Light Theme Variables */
 .light {
-    --background: #ffffff;
-    --foreground: #171717;
-    --sidebar-bg: #ffffff;
-    --content-bg: #f4f6f8;
-    --text-main: #212529;
-    --border-color: rgba(0, 0, 0, 0.1);
-    --scrollbar-track: #fff;
-    --scrollbar-thumb: #ccc;
+    --background: #F7F5F0;
+    /* Warm Editorial Beige */
+    --foreground: #141414;
+    /* Deep Obsidian Charcoal */
+    --sidebar-bg: #EFECE6;
+    /* Soft Cream Secondary */
+    --content-bg: #FFFFFF;
+    /* Clean White */
+    --text-main: #141414;
+    --text-muted: #666666;
+    --accent-gold: #C5A059;
+    /* Champagne Gold */
+    --border-color: rgba(226, 221, 213, 0.9);
+    --scrollbar-track: #F7F5F0;
+    --scrollbar-thumb: #C5A059;
+    --nav-bg: rgba(247, 245, 240, 0.88);
 }
 
-/* Dark Theme Variables */
+/* Editorial Luxury Dark Theme Variables */
 .dark {
-    --background: #121212;
-    --foreground: #c8c8c8;
-    --sidebar-bg: #1e1e1e;
-    --content-bg: #181818;
-    --text-main: #e0e0e0;
+    --background: #0B0F19;
+    /* Obsidian Night */
+    --foreground: #F8FAFC;
+    --sidebar-bg: #131A2A;
+    --content-bg: #182236;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --accent-gold: #CCFF00;
+    /* Electric Lime / Cyber Violet */
     --border-color: rgba(255, 255, 255, 0.1);
-    --scrollbar-track: #212121;
-    --scrollbar-thumb: #444;
+    --scrollbar-track: #0B0F19;
+    --scrollbar-thumb: #26334D;
+    --nav-bg: rgba(11, 15, 25, 0.88);
 }
 
-/* Universal Scrollbar using variables */
+/* Universal Typography Helper Classes */
+.font-serif {
+    font-family: var(--font-serif), 'Playfair Display', Georgia, serif !important;
+}
+
+.font-sans {
+    font-family: var(--font-sans), 'Outfit', sans-serif !important;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 5px !important;
-    height: 5px !important;
+    width: 6px !important;
+    height: 6px !important;
 }
 
 ::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
+    border-radius: 999px;
 }
 
 ::-webkit-scrollbar-track {
@@ -117,7 +74,7 @@ body {
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans), 'Outfit', sans-serif;
     width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
@@ -128,6 +85,3 @@ body {
 .ReactCollapse--collapse {
     transition: height 0.3s ease-in-out;
 }
-
-
-

@@ -2,13 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import all_product from '../constants/all_product.js';
-import { ShopContext } from './ShopContextValue.js'
+import { ShopContext } from './ShopContextValue.js';
 
 const CART_KEY = "wearit_cart";
-const EXPIRY_MS = 7 * 24 * 60 * 60 * 1000; // 15 din
+const WISHLIST_KEY = "wearit_wishlist";
+const EXPIRY_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
-// Naya helper — file ke top pe, component se bahar
+// PKR Currency Formatter Helper
+export const formatPKR = (amount) => `Rs. ${Number(amount || 0).toLocaleString('en-PK')}`;
+
 const loadCartFromStorage = () => {
+  if (typeof window === 'undefined') return {};
   const raw = localStorage.getItem(CART_KEY);
   if (!raw) return {};
   try {
@@ -24,24 +28,36 @@ const loadCartFromStorage = () => {
   }
 };
 
-const ShopContextProvider = (props) => {
-  // CHANGE: useState({}) → lazy init from localStorage
-  const [cartItems, setCartItems] = useState({});
-    const [hydrated, setHydrated] = useState(false); // pehla effect track karne ke liye
+const loadWishlistFromStorage = () => {
+  if (typeof window === 'undefined') return [];
+  try {
+    const raw = localStorage.getItem(WISHLIST_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+};
 
+const ShopContextProvider = (props) => {
+  const [cartItems, setCartItems] = useState({});
+  const [wishlist, setWishlist] = useState([]);
+  const [hydrated, setHydrated] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [discountPercent, setDiscountPercent] = useState(0);
+
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
 
-// sirf ek dafa, mount ke baad, localStorage se load karo
+  // Initial Load on Mount
   useEffect(() => {
     setCartItems(loadCartFromStorage());
+    setWishlist(loadWishlistFromStorage());
     setHydrated(true);
   }, []);
 
-  // Ye effect ab sirf hydration ke baad hi localStorage ko update kare
+  // Save Cart to LocalStorage
   useEffect(() => {
-    if (!hydrated) return; // pehli render pe skip — warna load hote hi khali cart save ho jayega
+    if (!hydrated) return;
     const isEmpty = Object.keys(cartItems).length === 0;
     if (isEmpty) {
       localStorage.removeItem(CART_KEY);
@@ -53,7 +69,13 @@ const ShopContextProvider = (props) => {
     }));
   }, [cartItems, hydrated]);
 
-  const addtoCart = (itemId, size) => {
+  // Save Wishlist to LocalStorage
+  useEffect(() => {
+    if (!hydrated) return;
+    localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+  }, [wishlist, hydrated]);
+
+  const addtoCart = (itemId, size = 'M') => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => ({
       ...prev,
@@ -61,7 +83,7 @@ const ShopContextProvider = (props) => {
     }));
   };
 
-  const removeFromCart = (itemId, size) => {
+  const removeFromCart = (itemId, size = 'M') => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => {
       const updated = { ...prev };
@@ -74,7 +96,7 @@ const ShopContextProvider = (props) => {
     });
   };
 
-  const removeItemFromCart = (itemId, size) => {
+  const removeItemFromCart = (itemId, size = 'M') => {
     const key = `${itemId}_${size}`;
     setCartItems((prev) => {
       const updated = { ...prev };
@@ -83,16 +105,33 @@ const ShopContextProvider = (props) => {
     });
   };
 
+  const toggleWishlist = (productId) => {
+    setWishlist((prev) => 
+      prev.includes(productId) 
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
+
   const getTotalCartAmount = () => {
     let total = 0;
     for (const key in cartItems) {
       if (cartItems[key] > 0) {
         const itemId = Number(key.split('_')[0]);
         const itemInfo = all_product.find((p) => p.id === itemId);
-        if (itemInfo) total += itemInfo.new_price * cartItems[key];
+        if (itemInfo) {
+          const itemPrice = itemInfo.new_price || itemInfo.price || 0;
+          total += itemPrice * cartItems[key];
+        }
       }
     }
     return total;
+  };
+
+  const getDiscountedCartAmount = () => {
+    const subtotal = getTotalCartAmount();
+    const discount = (subtotal * discountPercent) / 100;
+    return Math.max(0, subtotal - discount);
   };
 
   const getTotalCartItems = () => {
@@ -103,22 +142,34 @@ const ShopContextProvider = (props) => {
     return total;
   };
 
+  const applyCoupon = (code) => {
+    if (code?.trim()?.toUpperCase() === 'WEARIT15') {
+      setDiscountPercent(15);
+      return { success: true, message: '15% Atelier VIP Discount Applied!' };
+    }
+    return { success: false, message: 'Invalid Coupon Code. Try "WEARIT15".' };
+  };
+
   const clearCart = () => {
     setCartItems({});
     localStorage.removeItem(CART_KEY);
   };
 
   const contextValue = {
-    getTotalCartItems,
-    getTotalCartAmount,
     all_product,
     cartItems,
+    wishlist,
+    toggleWishlist,
     addtoCart,
     removeFromCart,
     removeItemFromCart,
     clearCart,
-
-    // 🆕 EXPORTS
+    getTotalCartItems,
+    getTotalCartAmount,
+    getDiscountedCartAmount,
+    discountPercent,
+    applyCoupon,
+    formatPKR,
     isCartOpen,
     setIsCartOpen,
     openCart,
