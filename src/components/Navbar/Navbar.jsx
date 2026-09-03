@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { CiSearch } from 'react-icons/ci'
+import { GoPerson } from "react-icons/go";
 import { ShopContext } from '../../context/ShopContextValue'
 import { getImageUrl } from '@/constants/cloudinary'
 import './Navbar.css'
@@ -67,10 +68,10 @@ const Navbar = () => {
       {/* Desktop Nav Links */}
       <ul className='nav-menu'>
         <li><Link href='/' className={activeMenu === 'new-arrivals' ? 'active' : ''}>New Arrivals</Link></li>
-        <li><Link href='/collections' className={activeMenu === 'collections' ? 'active' : ''}>Collections</Link></li>
-        <li><Link href='/atelier' className={activeMenu === 'atelier' ? 'active' : ''}>The Atelier</Link></li>
-        <li><Link href='/about' className={activeMenu === 'about' ? 'active' : ''}>About</Link></li>
-        <li><Link href='/contact' className={activeMenu === 'contact' ? 'active' : ''}>Contact</Link></li>
+        <li><Link href='/women' className={activeMenu === 'collections' ? 'active' : ''}>Women</Link></li>
+        <li><Link href='/men' className={activeMenu === 'atelier' ? 'active' : ''}>Men</Link></li>
+        <li><Link href='/kids' className={activeMenu === 'about' ? 'active' : ''}>Kids</Link></li>
+        <li><Link href='/contact' className={activeMenu === 'contact' ? 'active' : ''}>Contact Us</Link></li>
       </ul>
 
       {/* Desktop Right Actions */}
@@ -89,8 +90,9 @@ const Navbar = () => {
         </div>
 
         {/* Wishlist Button */}
-        <div className="icon-circle-btn" title="Wishlist">
-          <i className="ri-heart-3-line"></i>
+        <div className="icon-circle-btn" title="profile">
+          <GoPerson />
+          {/* <i className="ri-heart-3-line"></i> */}
           {wishlist?.length > 0 && <span className="nav-badge">{wishlist.length}</span>}
         </div>
 

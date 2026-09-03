@@ -8,12 +8,10 @@
 .navbar {
   position: fixed;
   top: 10px;
-  left: 10px;
-  right: 10px;
+  left: 16px;
+  right: 16px;
   z-index: 1000;
   border-radius: 12px;
-
-    /* margin: 14px; */
 
   display: flex;
   align-items: center;
@@ -170,21 +168,17 @@
 .icon-circle-btn {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: var(--bg-secondary, #EFECE6);
-  border: 1px solid var(--border-color, #E2DDD5);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   position: relative;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--text-main, #141414);
   transition: all 0.2s ease;
 }
 
 .icon-circle-btn:hover {
-  background: #FFFFFF;
   transform: translateY(-2px);
 }
 
